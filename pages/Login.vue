@@ -13,7 +13,7 @@
             Or
             <a
               href="#"
-              class="font-medium text-animali-500 hover:text-animali-600 focus:outline-none focus:underline transition ease-in-out duration-150"
+              class="font-medium text-animali-600 hover:text-animali-500 focus:outline-none focus:underline transition ease-in-out duration-150"
             >
               start your 14-day free trial
             </a>
@@ -162,7 +162,7 @@
                 <div class="text-sm leading-5">
                   <a
                     href="#"
-                    class="font-medium text-animali-500 hover:text-animali-600 focus:outline-none focus:underline transition ease-in-out duration-150"
+                    class="font-medium text-animali-600 hover:text-animali-500 focus:outline-none focus:underline transition ease-in-out duration-150"
                   >
                     Forgot your password?
                   </a>
