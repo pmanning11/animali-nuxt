@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
+      {{ this.$store.state.AppActiveUser }}
+      <!-- <Logo /> -->
       <h1 class="title">
         animali-nuxt
       </h1>
@@ -47,16 +48,8 @@ export default {}
 }
 
 .title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
