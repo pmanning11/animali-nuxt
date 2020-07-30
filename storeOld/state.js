@@ -56,7 +56,7 @@ const getUserInfo = () => {
         .get()
         .then((snapshot) => {
           const currentUser = snapshot.data()
-          userInfo.displayName = currentUser.name
+          userInfo.name = currentUser.name
           userInfo.programId = currentUser.programId
           userInfo.userRole = currentUser.userRole
         })
