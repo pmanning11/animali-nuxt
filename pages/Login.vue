@@ -104,13 +104,8 @@
       <img
         class="absolute inset-0 h-full w-full object-cover"
         src="https://source.unsplash.com/XSNmXUiEZqI/"
-        alt=""
+        alt="whale shark"
       />
-      <!-- <img
-        class="absolute inset-0 h-full w-full object-cover"
-        src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-        alt=""
-      /> -->
     </div>
   </div>
 </template>
@@ -144,9 +139,10 @@ export default {
           email: this.email,
           password: this.password,
         })
-        this.$router.push('/')
+        // this.$router.push('/dashboard')
       } catch (error) {
         this.loading = false
+        console.log('error logging in from login.vue')
         console.error(error.message)
       }
     },

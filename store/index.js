@@ -15,10 +15,7 @@ export const mutations = {
 
   UPDATE_USER(state, payload) {
     for (const property of Object.keys(payload)) {
-      // If some of user property is null - user default property defined in state.AppActiveUser
       state.user[property] = payload[property]
-      // Store data in localStorage
-      // localStorage.setItem('userInfo', JSON.stringify(userInfo))
     }
   },
 
@@ -80,6 +77,7 @@ export const actions = {
             email,
             password
           )
+          this.$router.push('/dashboard')
           // const userInfo = {
           //   id: user.user.uid,
           //   email: user.user.email,
@@ -100,8 +98,6 @@ export const actions = {
   async onAuthStateChanged({ commit }, { authUser, claims }) {
     console.log('getUserInfo from onauthstatechanged')
     const userInfo = {}
-
-    // New
     if (authUser) {
       // get the user data from firestore
       await this.$fireStore
@@ -110,7 +106,9 @@ export const actions = {
         .get()
         .then((snapshot) => {
           const currentUser = snapshot.data()
-          userInfo.displayName = currentUser.name
+          userInfo.firstName = currentUser.firstName
+          userInfo.lastName = currentUser.lastName
+          userInfo.email = currentUser.email
           userInfo.programId = currentUser.programId
           userInfo.userRole = currentUser.userRole
         })
@@ -124,16 +122,17 @@ export const actions = {
           const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
             new Date(program.dateFounded.seconds * 1000)
           ).toDate()
-          userInfo.programName = program.name
+          userInfo.programName = program.programName
           userInfo.programSlug = program.slug
           userInfo.imageLogo = program.imageLogo
           userInfo.imageHeader = program.imageHeader
           userInfo.description = program.description
           userInfo.dateFounded = dateFoundedTimestamp
-          userInfo.programEmail = program.email
+          userInfo.programEmail = program.programEmail
           userInfo.isPublic = program.isPublic
           userInfo.linkDonate = program.linkDonate
           userInfo.linkFacebook = program.linkFacebook
+          userInfo.linkInstagram = program.linkInstagram
           userInfo.linkTwitter = program.linkTwitter
           userInfo.linkWebsite = program.linkWebsite
           userInfo.linkYoutube = program.linkYoutube
@@ -146,22 +145,75 @@ export const actions = {
         })
 
       commit('SET_USER', userInfo)
+      this.$router.push('/dashboard')
     } else {
-      console.log('Auth State Changed to No User')
+      console.log('Auth State Changed -> No User')
       commit('SET_USER', null)
       authUser = null
       claims = null
     }
   },
 
-  // async loginGithub({ commit }) {
-  //   try {
-  //     const user = await auth.signInWithPopup(github)
-  //     commit('SET_USER', user.user)
-  //   } catch (error) {
-  //     throw new Error('An Error Ocurred: ', error)
-  //   }
-  // },
+  updateUser({ commit }, payload) {
+    const user = this.$fireAuth.currentUser
+    const self = this
+    // Update the users fireAuth displayname and email
+    user
+      .updateProfile({
+        displayName: `${payload.firstName} ${payload.lastName}`,
+        email: payload.email,
+      })
+      .then(async () => {
+        // Update user name, email in firestore
+        await this.$fireStore
+          .collection('users')
+          .doc(user.uid)
+          .set(
+            {
+              // all the deets
+              firstName: payload.firstName,
+              lastName: payload.lastName,
+              email: payload.email,
+            },
+            { merge: true }
+          )
+
+        // Update the program details
+        await this.$fireStore
+          .collection('programs')
+          .doc(payload.programId)
+          .update({
+            isPublic: payload.isPublic,
+            programName: payload.programName,
+            primarySpecies: payload.primarySpecies,
+            description: payload.description,
+            programEmail: payload.programEmail,
+            programSlug: payload.programSlug,
+            locationCity: payload.locationCity,
+            dateFounded: payload.dateFounded,
+            locationArea: payload.locationArea,
+            locationCountry: payload.locationCountry,
+            linkWebsite: payload.linkWebsite,
+            linkDonate: payload.linkDonate,
+            linkTwitter: payload.linkTwitter,
+            linkFacebook: payload.linkFacebook,
+            linkInstagram: payload.linkInstagram,
+            linkYoutube: payload.linkYoutube,
+          })
+
+        // Update the store
+        commit('UPDATE_USER', payload)
+
+        // If reload is required to get fresh data after update
+        // Reload current page
+        if (payload.isReloadRequired) {
+          self.$router.go(self.$router.currentRoute)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
 
   updateLogo({ commit }, payload) {
     const programId = payload.programId
