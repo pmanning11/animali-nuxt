@@ -22,7 +22,7 @@
 
         <div class="mt-8">
           <div>
-            <div>
+            <!-- <div>
               <p class="text-sm leading-5 font-medium text-gray-700">
                 Sign in with
               </p>
@@ -103,7 +103,7 @@
                   Or continue with
                 </span>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="mt-6">
