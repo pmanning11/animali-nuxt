@@ -1,21 +1,24 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-gray-100">
     <!-- Off-canvas menu for mobile -->
-    <div class="md:hidden">
-      <div class="fixed inset-0 flex z-40">
-        <!--
-        Off-canvas menu overlay, show/hide based on off-canvas menu state.
-
-        Entering: "transition-opacity ease-linear duration-300"
-          From: "opacity-0"
-          To: "opacity-100"
-        Leaving: "transition-opacity ease-linear duration-300"
-          From: "opacity-100"
-          To: "opacity-0"
-      -->
-        <div class="fixed inset-0">
-          <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
-        </div>
+    <div class="md:hidden" v-show="isSidebarOpen">
+      <div class="fixed inset-0 flex z-40" v-show="isSidebarOpen">
+        <transition
+          enter-active-class="transition-opacity ease-linear duration-300"
+          enter-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transition-opacity ease-linear duration-300"
+          leave-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
+          <div
+            class="fixed inset-0"
+            v-show="isSidebarOpen"
+            @click="isSidebarOpen = false"
+          >
+            <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
+          </div>
+        </transition>
         <!--
         Off-canvas menu, show/hide based on off-canvas menu state.
 
@@ -26,155 +29,121 @@
           From: "translate-x-0"
           To: "-translate-x-full"
       -->
-        <div
-          class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-800"
+        <transition
+          enter-active-class="transition ease-in-out duration-300 transform"
+          enter-class="-translate-x-full"
+          enter-to-class="translate-x-0"
+          leave-active-class="transition ease-in-out duration-300 transform"
+          leave-class="translate-x-0"
+          leave-to-class="-translate-x-full"
         >
-          <div class="absolute top-0 right-0 -mr-14 p-1">
-            <button
-              class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
-              aria-label="Close sidebar"
+          <div
+            class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-animali-900"
+            v-show="isSidebarOpen"
+          >
+            <div class="absolute top-0 right-0 -mr-14 p-1">
+              <button
+                class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
+                aria-label="Close sidebar"
+                v-show="isSidebarOpen"
+                @click="isSidebarOpen = false"
+              >
+                <svg
+                  class="h-6 w-6 text-white"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <nuxt-link
+              to="/dashboard"
+              class="flex-shrink-0 flex items-center px-6"
             >
-              <svg
-                class="h-6 w-6 text-white"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+              <logo class="h-8 w-auto mr-4 fill-current text-primary" />
+              <h1 class="font-national text-4xl font-medium text-primary ">
+                Animali
+              </h1>
+            </nuxt-link>
+            <div class="mt-5 flex-1 h-0 overflow-y-auto">
+              <nav class="px-2">
+                <nuxt-link
+                  to="/dashboard"
+                  class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-white focus:outline-none focus:bg-animali-600 hover:bg-animali-600 transition ease-in-out duration-150"
+                >
+                  <svg
+                    class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                    fill="white"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                    ></path>
+                  </svg>
+                  Dashboard
+                </nuxt-link>
+                <nuxt-link
+                  to="/list"
+                  class="mt-2 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-white hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
+                >
+                  <svg
+                    class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                    fill="white"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Animals
+                </nuxt-link>
+                <nuxt-link
+                  to="/map"
+                  class="mt-2 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-white hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
+                >
+                  <svg
+                    class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                    fill="white"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Map
+                </nuxt-link>
+                <nuxt-link
+                  to="/add-encounter"
+                  class="mt-2 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-white hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
+                >
+                  <svg
+                    class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                    fill="white"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Add Encounter
+                </nuxt-link>
+              </nav>
+            </div>
           </div>
-          <div class="flex-shrink-0 flex items-center px-4">
-            <img
-              class="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-logo-on-brand.svg"
-              alt="Workflow"
-            />
-          </div>
-          <div class="mt-5 flex-1 h-0 overflow-y-auto">
-            <nav class="px-2">
-              <a
-                href="#"
-                class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-white bg-indigo-900 focus:outline-none focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  />
-                </svg>
-                Dashboard
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-indigo-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-                Team
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-indigo-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                  />
-                </svg>
-                Projects
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-indigo-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                Calendar
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-indigo-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                  />
-                </svg>
-                Documents
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-indigo-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-4 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-                Reports
-              </a>
-            </nav>
-          </div>
-        </div>
+        </transition>
         <div class="flex-shrink-0 w-14">
           <!-- Dummy element to force sidebar to shrink to fit close icon -->
         </div>
@@ -186,141 +155,98 @@
       <div class="flex flex-col w-64">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div
-          class="flex flex-col flex-grow bg-indigo-800 pt-5 pb-4 overflow-y-auto"
+          class="flex flex-col flex-grow bg-animali-900 pt-2 pb-4 overflow-y-auto"
         >
-          <div class="flex items-center flex-shrink-0 px-4">
-            <img
-              class="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-logo-on-brand.svg"
-              alt="Workflow"
-            />
-          </div>
+          <nuxt-link
+            to="/dashboard"
+            class="flex items-center flex-shrink-0 px-6"
+          >
+            <logo class="h-8 w-auto mr-4 fill-current text-primary" />
+            <h1 class="font-national text-4xl font-medium text-primary ">
+              Animali
+            </h1>
+          </nuxt-link>
           <div class="mt-5 flex-1 flex flex-col">
-            <nav class="flex-1 px-2 bg-indigo-800">
-              <a
-                href="#"
-                class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-white rounded-md bg-indigo-900 focus:outline-none focus:bg-indigo-700 transition ease-in-out duration-150"
+            <nav class="flex-1 px-2 bg-animali-900">
+              <nuxt-link
+                to="/dashboard"
+                class="group flex items-center px-2 py-2 text-md leading-5 font-medium text-white rounded-md focus:outline-none focus:bg-animali-600 hover:bg-animali-600 transition ease-in-out duration-150"
               >
                 <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                  fill="white"
+                  viewBox="0 0 20 20"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  />
+                    d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                  ></path>
                 </svg>
                 Dashboard
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-indigo-300 rounded-md hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
+              </nuxt-link>
+              <nuxt-link
+                to="/list"
+                class="mt-2 group flex items-center px-2 py-2 text-md leading-5 font-medium text-white rounded-md hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
               >
                 <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                  fill="white"
+                  viewBox="0 0 20 20"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
+                    fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
-                Team
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-indigo-300 rounded-md hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
+                Animals
+              </nuxt-link>
+              <nuxt-link
+                to="/map"
+                class="mt-2 group flex items-center px-2 py-2 text-md leading-5 font-medium text-white rounded-md hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
               >
                 <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                  fill="white"
+                  viewBox="0 0 20 20"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                  />
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
-                Projects
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-indigo-300 rounded-md hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
+                Map
+              </nuxt-link>
+              <nuxt-link
+                to="/add-encounter"
+                class="mt-2 group flex items-center px-2 py-2 text-md leading-5 font-medium text-white rounded-md hover:text-white hover:bg-animali-600 focus:outline-none focus:text-white focus:bg-animali-600 transition ease-in-out duration-150"
               >
                 <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  class="mr-3 h-8 w-8 transition ease-in-out duration-150"
+                  fill="white"
+                  viewBox="0 0 20 20"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
+                    fill-rule="evenodd"
+                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
-                Calendar
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-indigo-300 rounded-md hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                  />
-                </svg>
-                Documents
-              </a>
-              <a
-                href="#"
-                class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-indigo-300 rounded-md hover:text-white hover:bg-indigo-700 focus:outline-none focus:text-white focus:bg-indigo-700 transition ease-in-out duration-150"
-              >
-                <svg
-                  class="mr-3 h-6 w-6 text-indigo-400 group-hover:text-indigo-300 group-focus:text-indigo-300 transition ease-in-out duration-150"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-                Reports
-              </a>
+                Add Encounter
+              </nuxt-link>
             </nav>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Search bar and main area -->
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
       <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
         <button
           class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
           aria-label="Open sidebar"
+          @click.stop="isSidebarOpen = true"
         >
           <svg
             class="h-6 w-6"
@@ -336,7 +262,7 @@
             />
           </svg>
         </button>
-        <div class="flex-1 px-4 flex justify-between">
+        <div class="flex-1 px-6 flex justify-between">
           <div class="flex-1 flex">
             <form class="w-full flex md:ml-0" action="#" method="GET">
               <label for="search_field" class="sr-only">Search</label>
@@ -391,53 +317,72 @@
                   id="user-menu"
                   aria-label="User menu"
                   aria-haspopup="true"
+                  @click="isAvatarMenuOpen = !isAvatarMenuOpen"
                 >
                   <img
                     class="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    :src="activeUserInfo.imageLogo"
+                    :alt="activeUserInfo.name"
                   />
                 </button>
               </div>
-              <!--
-              Profile dropdown panel, show/hide based on dropdown state.
 
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
-              <div
-                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
+              <transition
+                enter-active-class="transition ease-out duration-100"
+                enter-class="transform opacity-0 scale-95"
+                enter-to-class="transform opacity-100 scale-100"
+                leave-active-class="transition ease-in duration-75"
+                leave-class="transform opacity-100 scale-100"
+                leave-to-class="transform opacity-0 scale-95"
               >
                 <div
-                  class="py-1 rounded-md bg-white shadow-xs"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
+                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
+                  v-show="isAvatarMenuOpen"
                 >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                    role="menuitem"
-                    >Your Profile</a
+                  <div
+                    class="py-1 rounded-md bg-white shadow-xs"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu"
                   >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                    role="menuitem"
-                    >Settings</a
-                  >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                    role="menuitem"
-                    >Sign out</a
-                  >
+                    <a
+                      v-if="activeUserInfo.isPublic"
+                      :href="
+                        `https://animali.life/programs/${activeUserInfo.programSlug}/${activeUserInfo.programId}`
+                      "
+                      target="_blank"
+                      class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                      role="menuitem"
+                      >Program Page
+                      <svg
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        class="h-4"
+                      >
+                        <path
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        ></path></svg
+                    ></a>
+                    <nuxt-link
+                      to="/settings"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                      role="menuitem"
+                      >Settings</nuxt-link
+                    >
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                      role="menuitem"
+                      @click="logout"
+                      >Sign out</a
+                    >
+                  </div>
                 </div>
-              </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -447,24 +392,58 @@
         class="flex-1 relative z-0 overflow-y-auto focus:outline-none"
         tabindex="0"
       >
-        <div class="pt-2 pb-6 md:py-6">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-            <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
-          </div>
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-            <!-- Replace with your content -->
-            <div class="py-4">
-              <div
-                class="border-4 border-dashed border-gray-200 rounded-lg h-96"
-              ></div>
-            </div>
-            <!-- /End replace -->
-          </div>
-        </div>
+        <nuxt />
       </main>
     </div>
   </div>
 </template>
+
+<script>
+import Logo from '../components/Logo'
+
+export default {
+  components: {
+    Logo,
+  },
+
+  middleware: 'auth',
+
+  data() {
+    return {
+      isSidebarOpen: false,
+      isAvatarMenuOpen: false,
+    }
+  },
+
+  watch: {
+    '$route.path': function() {
+      this.isSidebarOpen = false
+      this.isAvatarMenuOpen = false
+    },
+  },
+
+  computed: {
+    activeUserInfo() {
+      return this.$store.state.user
+    },
+  },
+
+  methods: {
+    async logout() {
+      try {
+        await this.$store.dispatch('logout')
+        this.$router.push('/login')
+      } catch (e) {
+        console.log(e.message)
+      }
+    },
+  },
+
+  created() {
+    console.log('default view created')
+  },
+}
+</script>
 
 <style>
 html {
