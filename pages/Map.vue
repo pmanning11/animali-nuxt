@@ -1,20 +1,20 @@
 <template>
   <div ref="theMap" id="the-map">
+    <AnimalSidebar
+      :isSidebarActive="animalSidebar"
+      @closeSidebar="toggleAnimalSidebar"
+      :data="sidebarData"
+    />
     <GmapMap
       :center="center"
       :zoom="5"
       :options="mapOptions"
       style="width: 100%; height: calc(100vh - 64px)"
     >
-      <AnimalSidebar
-        :isSidebarActive="animalSidebar"
-        @closeSidebar="toggleAnimalSidebar"
-        :data="sidebarData"
-      />
       <GmapCluster :zoomOnClick="true">
         <GmapMarker
           v-for="(encounter, index) in encounter_data"
-          :key="encounter.uid"
+          :key="index"
           :position="latLng(encounter)"
           :clickable="true"
           @click="expandSidebar(encounter)"
@@ -46,7 +46,7 @@ export default {
           position: 6,
         },
       },
-      center: { lat: 47.376332, lng: 8.547511 },
+      center: { lat: 47.3763, lng: 8.5475 },
       infoContent: '',
       infoWindowPos: null,
       infoWinOpen: false,
@@ -142,7 +142,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     const programId = this.$store.state.user.programId
 
     if (this.$store.state.animals.length < 1) {
