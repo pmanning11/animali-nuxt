@@ -1,7 +1,7 @@
 <template>
   <section
     class="absolute inset-y-0 right-0 pl-10 max-w-full flex z-50"
-    v-if="data"
+    v-if="animalData"
   >
     <transition
       enter-active-class="transform transition ease-in-out duration-500 sm:duration-700"
