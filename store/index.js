@@ -59,11 +59,14 @@ export const actions = {
     commit('SET_USER', null)
   },
 
-  async login({ commit }, { email, password }) {
+  async login({ commit }, { checkbox_remember_me, email, password }) {
     try {
       await this.$fireAuth.createUserWithEmailAndPassword(email, password)
       const user = this.$fireAuth.currentUser
-      await user.sendEmailVerification()
+      var actionCodeSettings = {
+        url: 'https://app.animali.life/dashboard?email=verified',
+      }
+      await user.sendEmailVerification(actionCodeSettings)
       const userInfo = {
         id: user.uid,
         email: user.email,
@@ -71,19 +74,36 @@ export const actions = {
       }
       commit('SET_USER', userInfo)
     } catch (error) {
+      const self = this
       if (error.code === 'auth/email-already-in-use') {
         try {
-          const user = await this.$fireAuth.signInWithEmailAndPassword(
-            email,
-            password
-          )
-          this.$router.push('/dashboard')
-          // const userInfo = {
-          //   id: user.user.uid,
-          //   email: user.user.email,
-          //   verified: user.user.emailVerified,
-          // }
-          // commit('SET_USER', userInfo)
+          // If remember_me is enabled change firebase Persistence
+          if (!checkbox_remember_me) {
+            // Change firebase Persistence
+            this.$fireAuth
+              .setPersistence(this.$fireAuthObj.Auth.Persistence.SESSION)
+
+              // If success try to login
+              .then(async function() {
+                const user = await self.$fireAuth.signInWithEmailAndPassword(
+                  email,
+                  password
+                )
+                self.$router.push('/dashboard')
+              })
+
+              // If error notify
+              .catch(function(err) {
+                console.log(err)
+              })
+          } else {
+            // Remember me NOT checked -> Try to login
+            const user = await this.$fireAuth.signInWithEmailAndPassword(
+              email,
+              password
+            )
+            this.$router.push('/dashboard')
+          }
         } catch (error) {
           console.log(error)
           throw new Error('An Error Ocurred: ', error)
