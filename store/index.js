@@ -123,7 +123,7 @@ export const actions = {
             new Date(program.dateFounded.seconds * 1000)
           ).toDate()
           userInfo.programName = program.programName
-          userInfo.programSlug = program.slug
+          userInfo.programSlug = program.programSlug
           userInfo.imageLogo = program.imageLogo
           userInfo.imageHeader = program.imageHeader
           userInfo.description = program.description
