@@ -7,9 +7,7 @@
       <!-- Replace with your content -->
 
       <div class="py-4">
-        <div
-          class="border-4 border-dashed border-gray-200 rounded-lg h-96"
-        ></div>
+        <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
       </div>
       <!-- /End replace -->
     </div>
@@ -19,12 +17,12 @@
 <script>
 export default {
   data() {
-    return {}
+    return {};
   },
 
   computed: {
     animalsData() {
-      return this.$store.state.animals
+      return this.$store.state.animals;
     },
   },
 
@@ -35,13 +33,13 @@ export default {
     //   moduleAnimals.isRegistered = true
     if (this.$store.state.animals.length < 1) {
       // Get the animals
-      const programId = this.$store.state.user.programId
-      this.$store.dispatch('fetchAnimals', programId).catch((err) => {
-        console.error('error dispatching animals', err)
-      })
+      const programId = this.$store.state.user.programId;
+      this.$store.dispatch("fetchAnimals", programId).catch((err) => {
+        console.error("error dispatching animals", err);
+      });
     }
   },
-}
+};
 </script>
 
 <style scoped></style>
