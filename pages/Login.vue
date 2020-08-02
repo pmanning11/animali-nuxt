@@ -5,6 +5,7 @@
       v-show="showNotification"
       :title="notificationTitle"
       :body="notificationBody"
+      :status="notificationStatus"
     />
     <PasswordResetModal
       v-show="showPasswordResetModal"
@@ -22,10 +23,10 @@
           </h2>
           <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
             Or
-            <a
-              href="#"
+            <nuxt-link
+              to="/register"
               class="font-medium text-animali-600 hover:text-animali-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-              >start your 14-day free trial</a
+              >register for a 30-day free trial</nuxt-link
             >
           </p>
         </div>
@@ -126,6 +127,7 @@
                 >
                 <div class="mt-1 rounded-md shadow-sm">
                   <input
+                    :disabled="isLoading"
                     v-model="email"
                     id="email"
                     type="email"
@@ -143,6 +145,7 @@
                 >
                 <div class="mt-1 rounded-md shadow-sm">
                   <input
+                    :disabled="isLoading"
                     v-model="password"
                     id="password"
                     type="password"
@@ -179,10 +182,26 @@
               <div class="mt-6">
                 <span class="block w-full rounded-md shadow-sm">
                   <button
+                    :disabled="isLoading"
                     type="submit"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out"
+                    :class="
+                      `${
+                        isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                      } w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out`
+                    "
                     @click.prevent="login"
                   >
+                    <svg
+                      v-if="isLoading"
+                      class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
                     Sign in
                   </button>
                 </span>
@@ -218,32 +237,36 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       checkbox_remember_me: false,
       showPasswordResetModal: false,
       showNotification: false,
-      loading: false,
       email: '',
       password: '',
       notificationTitle: '',
       notificationBody: '',
+      notificationStatus: '',
     }
   },
 
   methods: {
     async login() {
-      this.loading = true
+      this.isLoading = true
       try {
         console.log('began login function')
-        await this.$store.dispatch('login', {
-          email: this.email,
-          password: this.password,
-          checkbox_remember_me: this.checkbox_remember_me,
-        })
-        // this.$router.push('/dashboard')
+        await this.$store
+          .dispatch('login', {
+            email: this.email,
+            password: this.password,
+            checkbox_remember_me: this.checkbox_remember_me,
+          })
+          .catch((err) => {
+            this.isLoading = false
+            console.log('mofuckin erra gah ', err)
+          })
       } catch (error) {
-        this.loading = false
-        console.log('error logging in from login.vue')
-        console.error(error.message)
+        this.isLoading = false
+        console.log('error logging in from login.vue: ', error)
       }
     },
 
@@ -254,6 +277,7 @@ export default {
       this.showNotification = true
       this.notificationTitle = e.title
       this.notificationBody = e.body
+      this.notificationStatus = e.status
       // Delay 1 second then hide notification
       setTimeout(() => {
         this.showNotification = false

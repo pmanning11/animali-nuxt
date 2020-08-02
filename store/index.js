@@ -1,8 +1,11 @@
+import { registerVersion } from 'firebase'
+
 export const strict = false
 
 export const state = () => ({
   user: null,
   animals: [],
+  notification: null,
 })
 
 export const mutations = {
@@ -48,6 +51,12 @@ export const mutations = {
     const animalIndex = state.animals.findIndex((u) => u.id === itemId)
     state.animals.splice(animalIndex, 1)
   },
+  // /////////////////////////////////////////////
+  // Notifications
+  // /////////////////////////////////////////////
+  SET_NOTIFICATION(state, notification) {
+    state.notification = notification
+  },
 }
 
 export const actions = {
@@ -59,59 +68,58 @@ export const actions = {
     commit('SET_USER', null)
   },
 
-  async login({ commit }, { checkbox_remember_me, email, password }) {
+  async register({ commit }, { data }) {
     try {
-      await this.$fireAuth.createUserWithEmailAndPassword(email, password)
-      const user = this.$fireAuth.currentUser
-      var actionCodeSettings = {
-        url: 'https://app.animali.life/dashboard?email=verified',
-      }
-      await user.sendEmailVerification(actionCodeSettings)
-      const userInfo = {
-        id: user.uid,
-        email: user.email,
-        verified: user.emailVerified,
-      }
-      commit('SET_USER', userInfo)
+      // await this.$fireAuth.createUserWithEmailAndPassword(email, password)
+      // const user = this.$fireAuth.currentUser
+      // var actionCodeSettings = {
+      //   url: 'https://app.animali.life/dashboard?email=verified',
+      // }
+      // await user.sendEmailVerification(actionCodeSettings)
+      // const userInfo = {
+      //   id: user.uid,
+      //   email: user.email,
+      //   verified: user.emailVerified,
+      // }
+      // commit('SET_USER', userInfo)
     } catch (error) {
       const self = this
       if (error.code === 'auth/email-already-in-use') {
-        try {
-          // If remember_me is enabled change firebase Persistence
-          if (!checkbox_remember_me) {
-            // Change firebase Persistence
-            this.$fireAuth
-              .setPersistence(this.$fireAuthObj.Auth.Persistence.SESSION)
+        console.log(error)
+      }
+    }
+  },
 
-              // If success try to login
-              .then(async function() {
-                const user = await self.$fireAuth.signInWithEmailAndPassword(
-                  email,
-                  password
-                )
-                self.$router.push('/dashboard')
-              })
+  async login({ commit }, { checkbox_remember_me, email, password }) {
+    const self = this
 
-              // If error notify
-              .catch(function(err) {
-                console.log(err)
-              })
-          } else {
-            // Remember me NOT checked -> Try to login
-            const user = await this.$fireAuth.signInWithEmailAndPassword(
+    try {
+      // If remember_me is enabled change firebase Persistence
+      if (!checkbox_remember_me) {
+        this.$fireAuth
+          .setPersistence(this.$fireAuthObj.Auth.Persistence.SESSION)
+          .then(async function() {
+            const user = await self.$fireAuth.signInWithEmailAndPassword(
               email,
               password
             )
-            this.$router.push('/dashboard')
-          }
-        } catch (error) {
-          console.log(error)
-          throw new Error('An Error Ocurred: ', error)
-        }
+            self.$router.push('/dashboard')
+          })
+          .catch(function(err) {
+            console.log('error here: ', err)
+            throw new Error('An Error Ocurred trying to connect with FB: ', err)
+            commit('SET_NOTIFICATION', err)
+          })
       } else {
-        console.log(error)
-        throw new Error('An Error Ocurred: ', error)
+        // If Remember me NOT checked -> Try to login
+        const user = await this.$fireAuth.signInWithEmailAndPassword(
+          email,
+          password
+        )
+        this.$router.push('/dashboard')
       }
+    } catch (error) {
+      throw new Error('An Error Ocurred trying to connect with FB: ', error)
     }
   },
 

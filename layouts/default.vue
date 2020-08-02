@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-gray-100">
     <!-- Off-canvas menu for mobile -->
-    <div class="md:hidden" v-show="isSidebarOpen">
-      <div class="fixed inset-0 flex z-40" v-show="isSidebarOpen">
+    <div class="md:hidden">
+      <div :class="`fixed inset-0 flex ${isSidebarOpen ? 'z-50' : 'z-0'}`">
         <transition
           enter-active-class="transition-opacity ease-linear duration-300"
           enter-class="opacity-0"
@@ -66,6 +66,7 @@
             <nuxt-link
               to="/dashboard"
               class="flex-shrink-0 flex items-center px-6"
+              id="logo"
             >
               <logo class="h-8 w-auto mr-4 fill-current text-primary" />
               <h1 class="font-national text-4xl font-medium text-primary">
@@ -142,7 +143,7 @@
                 </nuxt-link>
               </nav>
 
-              <hr class="h-px flex mt-auto bg-teal-600 border-none" />
+              <hr class="h-px flex mt-auto bg-teal-800 border-none" />
 
               <nav class="flex-col px-2 bg-animali-900">
                 <nuxt-link
@@ -210,7 +211,8 @@
         >
           <nuxt-link
             to="/dashboard"
-            class="flex items-center flex-shrink-0 px-6"
+            id="logo"
+            class="flex items-center flex-shrink-0 px-6 bg-primary"
           >
             <logo class="h-8 w-auto mr-4 fill-current text-primary" />
             <h1 class="font-national text-4xl font-medium text-primary">
@@ -287,7 +289,7 @@
               </nuxt-link>
             </nav>
 
-            <hr class="h-px flex mt-auto bg-teal-600 border-none" />
+            <hr class="h-px flex mt-auto bg-teal-800 border-none" />
 
             <nav class="flex-col px-2 bg-animali-900">
               <nuxt-link
@@ -401,6 +403,7 @@
                   aria-label="User menu"
                   aria-haspopup="true"
                   @click="isAvatarMenuOpen = !isAvatarMenuOpen"
+                  v-click-outside="hideAvatarMenu"
                 >
                   <img
                     class="h-8 w-8 rounded-full"
@@ -502,6 +505,7 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
 import Notification from '../components/Notification'
 import Logo from '../components/Logo'
 
@@ -509,6 +513,10 @@ export default {
   components: {
     Logo,
     Notification,
+  },
+
+  directives: {
+    ClickOutside,
   },
 
   middleware: 'auth',
@@ -540,6 +548,10 @@ export default {
   },
 
   methods: {
+    hideAvatarMenu() {
+      this.isAvatarMenuOpen = false
+    },
+
     async logout() {
       try {
         await this.$store.dispatch('logout')
@@ -600,17 +612,6 @@ export default {
       this.deferredPrompt = null
     })
   },
-
-  beforeDestroy() {
-    window.removeEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault()
-      this.deferredPrompt = null
-    })
-
-    window.removeEventListener('appinstalled', () => {
-      this.deferredPrompt = null
-    })
-  },
 }
 </script>
 
@@ -661,5 +662,13 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.nuxt-link-exact-active {
+  @apply bg-teal-600;
+}
+
+#logo {
+  @apply bg-animali-900 !important;
 }
 </style>
