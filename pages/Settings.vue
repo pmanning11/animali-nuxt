@@ -866,10 +866,26 @@
       <div class="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
         <span class="inline-flex rounded-md shadow-sm">
           <button
+            :disabled="isLoading"
             type="button"
             @click="saveChanges"
-            class="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition ease-in-out duration-150"
+            :class="
+              `${
+                isLoading ? 'opacity-75 cursor-not-allowed' : ''
+              } inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition ease-in-out duration-150`
+            "
           >
+            <svg
+              v-if="isLoading"
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              viewBox="0 0 24 24"
+            >
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
             Save Changes
           </button>
         </span>
@@ -884,6 +900,8 @@ import slugify from 'slugify'
 export default {
   data() {
     return {
+      isLoading: false,
+
       isPublic: this.$store.state.user.isPublic,
       primarySpecies: this.$store.state.user.primarySpecies,
       programName: this.$store.state.user.programName,
@@ -967,6 +985,8 @@ export default {
     },
 
     async saveChanges() {
+      this.isLoading = true
+
       // Slugify the program name
       const slug = await slugify(this.programName, {
         replacement: '-',
@@ -1005,10 +1025,16 @@ export default {
         isReloadRequired: true,
       }
 
-      this.$store.dispatch('updateUser', payload).catch((err) => {
-        // notify error
-        console.log(err)
-      })
+      this.$store
+        .dispatch('updateUser', payload)
+        .then(() => {
+          console.log('successfully updated')
+        })
+        .catch((err) => {
+          // notify error
+          console.log(err)
+          this.isLoading = false
+        })
     },
   },
 

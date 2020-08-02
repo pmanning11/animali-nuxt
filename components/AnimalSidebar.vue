@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="absolute inset-y-0 right-0 pl-10 max-w-full flex z-50"
-    v-if="animalData"
-  >
+  <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
     <transition
       enter-active-class="transform transition ease-in-out duration-500 sm:duration-700"
       enter-class="translate-x-full"
@@ -11,7 +8,11 @@
       leave-class="translate-x-0"
       leave-to-class="translate-x-full"
     >
-      <div class="w-screen max-w-md z-" v-show="isSidebarActiveLocal">
+      <div
+        class="w-screen max-w-md z-50"
+        v-if="animalData"
+        v-show="isSidebarActiveLocal"
+      >
         <div
           class="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
         >

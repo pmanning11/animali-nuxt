@@ -162,5 +162,6 @@ export default {
 #the-map {
   position: relative;
   overflow: hidden;
+  z-index: 1000;
 }
 </style>
