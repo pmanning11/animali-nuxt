@@ -11,7 +11,11 @@
           leave-class="opacity-100"
           leave-to-class="opacity-0"
         >
-          <div class="fixed inset-0" v-show="isSidebarOpen" @click="isSidebarOpen = false">
+          <div
+            class="fixed inset-0"
+            v-show="isSidebarOpen"
+            @click="isSidebarOpen = false"
+          >
             <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
           </div>
         </transition>
@@ -59,15 +63,20 @@
                 </svg>
               </button>
             </div>
-            <nuxt-link to="/dashboard" class="flex-shrink-0 flex items-center px-6">
+            <nuxt-link
+              to="/dashboard"
+              class="flex-shrink-0 flex items-center px-6"
+            >
               <logo class="h-8 w-auto mr-4 fill-current text-primary" />
-              <h1 class="font-national text-4xl font-medium text-primary">Animali</h1>
+              <h1 class="font-national text-4xl font-medium text-primary">
+                Animali
+              </h1>
             </nuxt-link>
             <div class="mt-5 flex flex-1 flex-col h-0 overflow-y-auto">
               <nav class="px-2">
                 <nuxt-link
                   to="/dashboard"
-                  class="group flex items-center px-2 py-4 text-lg leading-6 font-medium rounded-md text-white focus:outline-none focus:bg-teal-500 hover:bg-teal-500 transition ease-in-out duration-150"
+                  class="group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-md text-white focus:outline-none focus:bg-teal-500 hover:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -82,7 +91,7 @@
                 </nuxt-link>
                 <nuxt-link
                   to="/list"
-                  class="mt-2 group flex items-center px-2 py-4 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
+                  class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -99,7 +108,7 @@
                 </nuxt-link>
                 <nuxt-link
                   to="/map"
-                  class="mt-2 group flex items-center px-2 py-4 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
+                  class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -116,7 +125,7 @@
                 </nuxt-link>
                 <nuxt-link
                   to="/add-encounter"
-                  class="mt-2 group flex items-center px-2 py-4 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
+                  class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-md text-white hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -138,7 +147,7 @@
               <nav class="flex-col px-2 bg-animali-900">
                 <nuxt-link
                   to="/settings"
-                  class="mt-2 group flex items-center px-2 py-4 text-lg leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
+                  class="mt-2 group flex items-center px-2 py-3 text-lg leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -163,8 +172,9 @@
                 </nuxt-link>
 
                 <a
+                  v-if="deferredPrompt"
                   @click="installApp"
-                  class="cursor-pointer mt-2 group flex items-center px-2 py-4 text-lg leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
+                  class="cursor-pointer mt-2 group flex items-center px-2 py-3 text-lg leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
                 >
                   <svg
                     class="mr-3 h-8 w-8 transition ease-in-out duration-150"
@@ -175,7 +185,9 @@
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path
+                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   Install the App
                 </a>
@@ -193,10 +205,17 @@
     <div class="hidden md:flex md:flex-shrink-0">
       <div class="flex flex-col w-64">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex flex-col flex-grow bg-animali-900 pt-2 pb-4 overflow-y-auto">
-          <nuxt-link to="/dashboard" class="flex items-center flex-shrink-0 px-6">
+        <div
+          class="flex flex-col flex-grow bg-animali-900 pt-2 pb-4 overflow-y-auto"
+        >
+          <nuxt-link
+            to="/dashboard"
+            class="flex items-center flex-shrink-0 px-6"
+          >
             <logo class="h-8 w-auto mr-4 fill-current text-primary" />
-            <h1 class="font-national text-4xl font-medium text-primary">Animali</h1>
+            <h1 class="font-national text-4xl font-medium text-primary">
+              Animali
+            </h1>
           </nuxt-link>
           <div class="mt-5 flex flex-1 flex-col">
             <nav class="flex-1 px-2 bg-animali-900">
@@ -298,6 +317,7 @@
               </nuxt-link>
 
               <a
+                v-if="deferredPrompt"
                 @click="installApp"
                 class="cursor-pointer mt-2 group flex items-center px-2 py-2 text-base leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
               >
@@ -310,7 +330,9 @@
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path
+                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 Install the App
               </a>
@@ -328,7 +350,12 @@
           aria-label="Open sidebar"
           @click.stop="isSidebarOpen = true"
         >
-          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <svg
+            class="h-6 w-6"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -341,8 +368,12 @@
           <div class="flex-1 flex">
             <form class="w-full flex md:ml-0" action="#" method="GET">
               <label for="search_field" class="sr-only">Search</label>
-              <div class="relative w-full text-gray-400 focus-within:text-gray-600">
-                <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+              <div
+                class="relative w-full text-gray-400 focus-within:text-gray-600"
+              >
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pointer-events-none"
+                >
                   <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fill-rule="evenodd"
@@ -425,13 +456,15 @@
                       to="/settings"
                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                       role="menuitem"
-                    >Settings</nuxt-link>
+                      >Settings</nuxt-link
+                    >
                     <a
                       href="#"
                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                       role="menuitem"
                       @click="logout"
-                    >Sign out</a>
+                      >Sign out</a
+                    >
                   </div>
                 </div>
               </transition>
@@ -440,104 +473,151 @@
         </div>
       </div>
 
-      <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
+      <main
+        class="flex-1 relative z-0 overflow-y-auto focus:outline-none"
+        tabindex="0"
+      >
         <nuxt />
       </main>
+
+      <transition
+        enter-active-class="transform ease-out duration-300 transition"
+        enter-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+        enter-to-class="translate-y-0 opacity-100 sm:translate-x-0"
+        leave-active-class="transition ease-in duration-100"
+        leave-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <Notification
+          class="z-50"
+          v-if="showNotification"
+          :status="notificationStatus"
+          :title="notificationTitle"
+          :body="notificationBody"
+          @close="closeNotification"
+        />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from "../components/Logo";
+import Notification from '../components/Notification'
+import Logo from '../components/Logo'
 
 export default {
   components: {
     Logo,
+    Notification,
   },
 
-  middleware: "auth",
+  middleware: 'auth',
 
   data() {
     return {
       isSidebarOpen: false,
       isAvatarMenuOpen: false,
       deferredPrompt: null,
-    };
+
+      showNotification: false,
+      notificationTitle: '',
+      notificationBody: '',
+      notificationStatus: '',
+    }
   },
 
   watch: {
-    "$route.path": function () {
-      this.isSidebarOpen = false;
-      this.isAvatarMenuOpen = false;
+    '$route.path': function() {
+      this.isSidebarOpen = false
+      this.isAvatarMenuOpen = false
     },
   },
 
   computed: {
     activeUserInfo() {
-      return this.$store.state.user;
+      return this.$store.state.user
     },
   },
 
   methods: {
     async logout() {
       try {
-        await this.$store.dispatch("logout");
-        this.$router.push("/login");
+        await this.$store.dispatch('logout')
+        this.$router.push('/login')
       } catch (e) {
-        console.log(e.message);
+        console.log(e.message)
       }
     },
 
     async installApp() {
-      console.log("before install prompt");
-      this.deferredPrompt.prompt();
+      console.log('install app triggered')
 
-      // Wait for the user to respond to the prompt:
-      this.deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the install prompt");
-        } else {
-          console.log("User dismissed the install prompt");
-        }
+      if (this.deferredPrompt) {
+        this.deferredPrompt.prompt()
+        // Wait for the user to respond to the prompt:
+        this.deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt')
+          } else {
+            console.log('User dismissed the install prompt')
+          }
 
-        this.deferredPrompt = null;
-      });
+          this.deferredPrompt = null
+        })
+      }
+
+      this.notificationStatus = 'error'
+      this.notificationTitle = 'Unsupported or already installed'
+      this.notificationBody =
+        'The app may already be installed or your browser may not support it'
+      this.showNotification = true
+
+      // Delay seconds then hide notification
+      setTimeout(() => {
+        this.showNotification = false
+      }, 6000)
+    },
+
+    closeNotification() {
+      this.showNotification = false
     },
   },
 
   created() {
-    console.log("default view created");
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      this.deferredPrompt = e;
-    });
-
-    window.addEventListener("appinstalled", () => {
-      this.deferredPrompt = null;
-    });
-
-    // window.addEventListener("beforeinstallprompt", (e) => {
-    //   // Prevent the mini-infobar from appearing on mobile
-    //   e.preventDefault();
-    //   // Stash the event so it can be triggered later.
-    //   deferredPrompt = e;
-    //   // Update UI notify the user they can install the PWA
-    //   showInstallPromotion();
-    // });
-
-    // window.addEventListener("appinstalled", () => {
-    //   this.deferredPrompt = null;
-    // });
+    console.log('default view created')
   },
-};
+
+  beforeMount() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt listener')
+      e.preventDefault()
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = e
+    })
+
+    window.addEventListener('appinstalled', () => {
+      console.log('appinstalled listener')
+      this.deferredPrompt = null
+    })
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault()
+      this.deferredPrompt = null
+    })
+
+    window.removeEventListener('appinstalled', () => {
+      this.deferredPrompt = null
+    })
+  },
+}
 </script>
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

@@ -2,23 +2,13 @@
   <div
     class="fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end"
   >
-    <!--
-    Notification panel, show/hide based on alert state.
-
-    Entering: "transform ease-out duration-300 transition"
-      From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-      To: "translate-y-0 opacity-100 sm:translate-x-0"
-    Leaving: "transition ease-in duration-100"
-      From: "opacity-100"
-      To: "opacity-0"
-  -->
     <div
       class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto"
     >
       <div class="rounded-lg shadow-xs overflow-hidden">
         <div class="p-4">
           <div class="flex items-start">
-            <div class="flex-shrink-0">
+            <div v-if="status === 'success'" class="flex-shrink-0">
               <svg
                 class="h-6 w-6 text-green-400"
                 fill="none"
@@ -33,6 +23,21 @@
                 />
               </svg>
             </div>
+            <div v-else class="flex-shrink-0">
+              <svg
+                class="h-6 w-6 text-red-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
             <div class="ml-3 w-0 flex-1 pt-0.5">
               <p class="text-sm leading-5 font-medium text-gray-900">
                 {{ title }}
@@ -43,6 +48,7 @@
             </div>
             <div class="ml-4 flex-shrink-0 flex">
               <button
+                @click="$emit('close')"
                 class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
               >
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -64,6 +70,10 @@
 <script>
 export default {
   props: {
+    status: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -73,5 +83,21 @@ export default {
       required: true,
     },
   },
+
+  data() {
+    return {}
+  },
+
+  // computed: {
+  //   activeStatus() {
+  //     console.log(this.status)
+  //     if (this.status === 'success') {
+  //       console.log(this.status)
+  //       return true
+  //     } else {
+  //       return false
+  //     }
+  //   },
+  // },
 }
 </script>
