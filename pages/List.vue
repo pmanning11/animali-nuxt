@@ -8,7 +8,7 @@
 
       <div class="py-4">
         <grid
-          :auto-width="true"
+          :auto-width="autoWidth"
           :cols="columns"
           :rows="animalsData"
           :pagination="pagination"
@@ -69,7 +69,7 @@ export default {
         },
         {
           id: 'totalEncounters',
-          name: 'Encounters',
+          name: '📍',
         },
         {
           id: 'dateFirstSeen',
@@ -97,9 +97,9 @@ export default {
       ],
       autoWidth: true,
       language: {
-        search: {
-          placeholder: '🔍 Search...',
-        },
+        // search: {
+        //   placeholder: '🔍 Search...',
+        // },
         pagination: {
           previous: '⬅️',
           next: '➡️',
@@ -109,10 +109,10 @@ export default {
       },
       pagination: {
         enabled: true,
-        limit: 10,
+        limit: 8,
         summary: true,
       },
-      search: true,
+      search: false,
       sort: true,
       fixedHeader: true,
       theme: 'mermaid',
