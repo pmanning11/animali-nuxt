@@ -457,6 +457,7 @@
                     </a>
                     <nuxt-link
                       to="/settings"
+                      id="settings-dropdown"
                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                       role="menuitem"
                       >Settings</nuxt-link
@@ -670,5 +671,13 @@ html {
 
 #logo {
   @apply bg-animali-900 !important;
+}
+
+#settings-dropdown {
+  @apply bg-white !important;
+}
+
+#settings-dropdown:hover {
+  @apply bg-gray-100 !important;
 }
 </style>
