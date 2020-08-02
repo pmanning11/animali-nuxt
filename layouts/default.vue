@@ -2,7 +2,10 @@
   <div class="h-screen flex overflow-hidden bg-gray-100">
     <!-- Off-canvas menu for mobile -->
     <div class="md:hidden">
-      <div :class="`fixed inset-0 flex ${isSidebarOpen ? 'z-50' : 'z-0'}`">
+      <div
+        :class="`fixed inset-0 flex ${isSidebarOpen ? 'z-50' : 'z-0'}`"
+        v-show="isSidebarOpen"
+      >
         <transition
           enter-active-class="transition-opacity ease-linear duration-300"
           enter-class="opacity-0"
