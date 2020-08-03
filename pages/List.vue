@@ -8,15 +8,14 @@
 
       <div class="py-4">
         <grid
-          :auto-width="autoWidth"
+          :auto-width="true"
+          :search="false"
+          :sort="true"
+          :fixedHeader="true"
           :cols="columns"
           :rows="animalsData"
           :pagination="pagination"
-          :search="search"
-          :sort="sort"
           :language="language"
-          :width="width"
-          :fixedHeader="fixedHeader"
         ></grid>
       </div>
       <!-- /End replace -->
@@ -95,7 +94,6 @@ export default {
           },
         },
       ],
-      autoWidth: true,
       language: {
         // search: {
         //   placeholder: '🔍 Search...',
@@ -112,11 +110,27 @@ export default {
         limit: 8,
         summary: true,
       },
-      search: false,
-      sort: true,
-      fixedHeader: true,
-      theme: 'mermaid',
-      width: '100%',
+      // classNames: {
+      //   td: 'my-td-class',
+      //   th: 'my-th-class',
+      //   table: 'custom-table-class',
+      // },
+      // styles: {
+      //   table: {
+      //     // border: '3px solid #ccc',
+      //   },
+      //   th: {
+      //     // 'background-color': 'rgba(0, 0, 0, 0.1)',
+      //     // color: '#000',
+      //     // 'border-bottom': '3px solid #ccc',
+      //     width: '200px',
+      //     'text-align': 'center',
+      //   },
+      //   td: {
+      //     width: '200px',
+      //     'text-align': 'left',
+      //   },
+      // },
     }
   },
 
