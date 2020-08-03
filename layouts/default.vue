@@ -616,6 +616,11 @@ export default {
       this.deferredPrompt = null
     })
   },
+
+  mounted() {
+    // prevent click outside event with popupItem.
+    this.popupItem = this.$el
+  },
 }
 </script>
 
