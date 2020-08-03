@@ -145,12 +145,6 @@ export default {
   created() {
     const programId = this.$store.state.user.programId
 
-    if (this.$store.state.animals.length < 1) {
-      this.$store.dispatch('fetchAnimals', programId).catch((err) => {
-        console.error(err)
-      })
-    }
-
     // Find animals "managedBy" == programId
     // Get those animals encounters and push into this.encounter_data
     this.fetch_encounter_data(programId)
