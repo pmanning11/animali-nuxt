@@ -6,6 +6,7 @@ export const state = () => ({
   user: null,
   animals: [],
   notification: null,
+  bodyOverlay: null,
 })
 
 export const mutations = {
@@ -51,11 +52,19 @@ export const mutations = {
     const animalIndex = state.animals.findIndex((u) => u.id === itemId)
     state.animals.splice(animalIndex, 1)
   },
+
   // /////////////////////////////////////////////
   // Notifications
   // /////////////////////////////////////////////
   SET_NOTIFICATION(state, notification) {
     state.notification = notification
+  },
+
+  // ////////////////////////////////////////////
+  // UI
+  // ////////////////////////////////////////////
+  TOGGLE_CONTENT_OVERLAY(state, val) {
+    state.bodyOverlay = val
   },
 }
 
@@ -66,6 +75,7 @@ export const actions = {
   async logout({ commit }) {
     await this.$fireAuth.signOut()
     commit('SET_USER', null)
+    this.$router.push('/login')
   },
 
   async register({ commit }, { data }) {

@@ -4,8 +4,6 @@
       <h1 class="text-2xl font-semibold text-gray-900">Animal List</h1>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-      <!-- Replace with your content -->
-
       <div class="py-4">
         <grid
           :auto-width="true"
@@ -18,7 +16,6 @@
           :language="language"
         ></grid>
       </div>
-      <!-- /End replace -->
     </div>
   </div>
 </template>
@@ -110,27 +107,6 @@ export default {
         limit: 8,
         summary: true,
       },
-      // classNames: {
-      //   td: 'my-td-class',
-      //   th: 'my-th-class',
-      //   table: 'custom-table-class',
-      // },
-      // styles: {
-      //   table: {
-      //     // border: '3px solid #ccc',
-      //   },
-      //   th: {
-      //     // 'background-color': 'rgba(0, 0, 0, 0.1)',
-      //     // color: '#000',
-      //     // 'border-bottom': '3px solid #ccc',
-      //     width: '200px',
-      //     'text-align': 'center',
-      //   },
-      //   td: {
-      //     width: '200px',
-      //     'text-align': 'left',
-      //   },
-      // },
     }
   },
 
@@ -140,19 +116,7 @@ export default {
     },
   },
 
-  created() {
-    // If Animal state is not registered - register and get animals
-    // if (!moduleAnimals.isRegistered) {
-    //   this.$store.registerModule('animals', moduleAnimals)
-    //   moduleAnimals.isRegistered = true
-    if (this.$store.state.animals.length < 1) {
-      // Get the animals
-      const programId = this.$store.state.user.programId
-      this.$store.dispatch('fetchAnimals', programId).catch((err) => {
-        console.error('error dispatching animals', err)
-      })
-    }
-  },
+  created() {},
 }
 </script>
 
