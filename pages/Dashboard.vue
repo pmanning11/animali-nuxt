@@ -8,15 +8,16 @@
       <div class="relative flex justify-end">
         <div>
           <button
-            class="max-w-xs flex items-center text-sm focus:outline-none focus:bg-cool-gray-100 p-2 rounded-md hover:bg-cool-gray-100"
+            class="max-w-xs flex items-center text-sm focus:outline-none p-2 rounded-md hover:bg-gray-200"
             id="user-menu"
             aria-label="User menu"
             aria-haspopup="true"
+            @click="isTimeframeMenuOpen = !isTimeframeMenuOpen"
           >
             <p
               class="block ml-3 text-cool-gray-700 text-sm leading-5 font-medium"
             >
-              Last Week
+              Last {{ timeframe }}
             </p>
             <svg
               class="block flex-shrink-0 ml-1 h-5 w-5 text-cool-gray-400"
@@ -31,45 +32,48 @@
             </svg>
           </button>
         </div>
-        <!--
-              Profile dropdown panel, show/hide based on dropdown state.
-
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-        -->
-        <div
-          class="origin-top-right absolute right-2 top-10 w-32 rounded-md shadow-lg"
+        <transition
+          enter-active-class="transition ease-out duration-100"
+          enter-class="transform opacity-0 scale-95"
+          enter-to-class="transform opacity-100 scale-100"
+          leave-active-class="transition ease-in duration-75"
+          leave-class="transform opacity-100 scale-100"
+          leave-to-class="transform opacity-0 scale-95"
         >
           <div
-            class="py-1 rounded-md bg-white shadow-xs"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="user-menu"
+            v-show="isTimeframeMenuOpen"
+            class="origin-top-right absolute right-2 top-10 w-32 rounded-md shadow-lg"
           >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
-              role="menuitem"
-              >Last Week</a
+            <div
+              class="py-1 rounded-md bg-white shadow-xs"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="user-menu"
             >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
-              role="menuitem"
-              >Last Month</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
-              role="menuitem"
-              >Last Year</a
-            >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
+                role="menuitem"
+                @click="changeTimeframe('week')"
+                >Last Week</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
+                role="menuitem"
+                @click="changeTimeframe('month')"
+                >Last Month</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
+                role="menuitem"
+                @click="changeTimeframe('year')"
+                >Last Year</a
+              >
+            </div>
           </div>
-        </div>
+        </transition>
       </div>
     </div>
     <!-- End dropdown -->
@@ -125,8 +129,22 @@ export default {
 
   data() {
     return {
-      timeline: '',
+      timeframe: 'week',
+      isTimeframeMenuOpen: false,
     }
+  },
+
+  methods: {
+    changeTimeframe(time) {
+      if (time === 'year') {
+        this.timeframe = 'year'
+      } else if (time === 'month') {
+        this.timeframe = 'month'
+      } else {
+        this.timeframe = 'week'
+      }
+      this.isTimeframeMenuOpen = false
+    },
   },
 }
 </script>
