@@ -12,57 +12,39 @@
               <img
                 class="hidden h-15 w-15 rounded-full sm:block"
                 :src="animal_data.profile_pic"
-                alt=""
+                alt
               />
               <div>
                 <div class="flex items-center">
-                  <img
-                    class="h-15 w-15 rounded-full sm:hidden"
-                    :src="animal_data.profile_pic"
-                    alt=""
-                  />
+                  <img class="h-15 w-15 rounded-full sm:hidden" :src="animal_data.profile_pic" alt />
                   <h1
                     class="ml-3 text-2xl font-bold leading-7 text-cool-gray-900 sm:leading-9 sm:truncate"
-                  >
-                    {{ animal_data.name }}
-                  </h1>
+                  >{{ animal_data.name }}</h1>
                 </div>
-                <dl
-                  class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap"
-                >
+                <dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                   <dt class="sr-only">Company</dt>
                   <dd
                     class="flex items-center text-sm leading-5 text-cool-gray-500 font-medium capitalize sm:mr-6"
-                  >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-cool-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    Duke street studio
-                  </dd>
+                  >{{animal_data.id}}</dd>
                   <dt class="sr-only">Account status</dt>
                   <dd
                     class="mt-3 flex items-center text-sm leading-5 text-cool-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize"
                   >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    Verified
+                    <div class="flex items-center" v-if="animal_data.status === 'active'">
+                      <span
+                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-teal-100 text-teal-800"
+                      >active</span>
+                    </div>
+                    <div v-else-if="animal_data.status === 'deceased'" class="flex items-center">
+                      <span
+                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-pink-100 text-pink-800"
+                      >deceased</span>
+                    </div>
+                    <div v-else>
+                      <span
+                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-orange-100 text-orange-800"
+                      >inactive</span>
+                    </div>
                   </dd>
                 </dl>
               </div>
@@ -73,17 +55,13 @@
               <nuxt-link
                 to="/add-encounter"
                 class="inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-cool-gray-800 active:bg-cool-gray-50 transition duration-150 ease-in-out"
-              >
-                Add Encounter
-              </nuxt-link>
+              >Add Encounter</nuxt-link>
             </span>
             <span class="shadow-sm rounded-md">
               <a
                 href="#track"
                 class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:shadow-outline-teal focus:border-teal-700 active:bg-teal-700 transition duration-150 ease-in-out"
-              >
-                View Track
-              </a>
+              >View Track</a>
             </span>
           </div>
         </div>
@@ -92,9 +70,7 @@
 
     <div class="mt-8">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-lg leading-6 font-medium text-cool-gray-900">
-          Overview
-        </h2>
+        <h2 class="text-lg leading-6 font-medium text-cool-gray-900">Overview</h2>
         <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <!-- Card -->
 
@@ -120,15 +96,9 @@
                   <dl>
                     <dt
                       class="text-sm leading-5 font-medium text-cool-gray-500 truncate"
-                    >
-                      Account balance
-                    </dt>
+                    >Account balance</dt>
                     <dd>
-                      <div
-                        class="text-lg leading-7 font-medium text-cool-gray-900"
-                      >
-                        $30,659.45
-                      </div>
+                      <div class="text-lg leading-7 font-medium text-cool-gray-900">$30,659.45</div>
                     </dd>
                   </dl>
                 </div>
@@ -139,9 +109,7 @@
                 <a
                   href="#"
                   class="font-medium text-teal-600 hover:text-teal-900 transition ease-in-out duration-150"
-                >
-                  View all
-                </a>
+                >View all</a>
               </div>
             </div>
           </div>
@@ -152,15 +120,11 @@
 
       <h2
         class="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-cool-gray-900 sm:px-6 lg:px-8"
-      >
-        Recent activity
-      </h2>
+      >Recent activity</h2>
 
       <!-- Activity list (smallest breakopoint only) -->
       <div class="shadow sm:hidden">
-        <ul
-          class="mt-2 divide-y divide-cool-gray-200 overflow-hidden shadow sm:hidden"
-        >
+        <ul class="mt-2 divide-y divide-cool-gray-200 overflow-hidden shadow sm:hidden">
           <li>
             <a href="#" class="block px-4 py-4 bg-white hover:bg-cool-gray-50">
               <div class="flex items-center space-x-4">
@@ -179,9 +143,7 @@
                   <div class="text-cool-gray-500 text-sm truncate">
                     <p class="truncate">Payment to Molly Sanders</p>
                     <p>
-                      <span class="text-cool-gray-900 font-medium"
-                        >$20,000</span
-                      >
+                      <span class="text-cool-gray-900 font-medium">$20,000</span>
                       USD
                     </p>
                     <p>July 11, 2020</p>
@@ -213,15 +175,11 @@
             <a
               href="#"
               class="relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
-            >
-              Previous
-            </a>
+            >Previous</a>
             <a
               href="#"
               class="ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
-            >
-              Next
-            </a>
+            >Next</a>
           </div>
         </nav>
       </div>
@@ -238,24 +196,16 @@
                   <tr>
                     <th
                       class="px-6 py-3 bg-cool-gray-50 text-left text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider"
-                    >
-                      Date Seen
-                    </th>
+                    >Date Seen</th>
                     <th
                       class="px-6 py-3 bg-cool-gray-50 text-right text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider"
-                    >
-                      Location
-                    </th>
+                    >Location</th>
                     <th
                       class="hidden px-6 py-3 bg-cool-gray-50 text-left text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider md:block"
-                    >
-                      Injury
-                    </th>
+                    >Injury</th>
                     <th
                       class="px-6 py-3 bg-cool-gray-50 text-right text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider"
-                    >
-                      Verified
-                    </th>
+                    >Verified</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-cool-gray-200">
@@ -264,10 +214,7 @@
                       class="max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900"
                     >
                       <div class="flex">
-                        <a
-                          href="#"
-                          class="group inline-flex space-x-2 truncate text-sm leading-5"
-                        >
+                        <a href="#" class="group inline-flex space-x-2 truncate text-sm leading-5">
                           <svg
                             class="flex-shrink-0 h-5 w-5 text-cool-gray-400 group-hover:text-cool-gray-500 transition ease-in-out duration-150"
                             viewBox="0 0 20 20"
@@ -281,18 +228,14 @@
                           </svg>
                           <p
                             class="text-cool-gray-500 truncate group-hover:text-cool-gray-900 transition ease-in-out duration-150"
-                          >
-                            Payment to Molly Sanders
-                          </p>
+                          >Payment to Molly Sanders</p>
                         </a>
                       </div>
                     </td>
                     <td
                       class="px-6 py-4 text-right whitespace-no-wrap text-sm leading-5 text-cool-gray-500"
                     >
-                      <span class="text-cool-gray-900 font-medium"
-                        >$20,000
-                      </span>
+                      <span class="text-cool-gray-900 font-medium">$20,000</span>
                       USD
                     </td>
                     <td
@@ -300,15 +243,11 @@
                     >
                       <span
                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-green-100 text-green-800 capitalize"
-                      >
-                        success
-                      </span>
+                      >success</span>
                     </td>
                     <td
                       class="px-6 py-4 text-right whitespace-no-wrap text-sm leading-5 text-cool-gray-500"
-                    >
-                      July 11, 2020
-                    </td>
+                    >July 11, 2020</td>
                   </tr>
 
                   <!-- More rows... -->
@@ -333,15 +272,11 @@
                   <a
                     href="#"
                     class="relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
-                  >
-                    Previous
-                  </a>
+                  >Previous</a>
                   <a
                     href="#"
                     class="ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
-                  >
-                    Next
-                  </a>
+                  >Next</a>
                 </div>
               </nav>
             </div>
@@ -352,9 +287,7 @@
       <!-- Projects list (only on smallest breakpoint) -->
       <div class="mt-10 sm:hidden">
         <div class="px-4 sm:px-6">
-          <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">
-            Recent Encounters
-          </h2>
+          <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Recent Encounters</h2>
         </div>
         <ul class="mt-3 border-t border-gray-200 divide-y divide-gray-100">
           <li>
@@ -363,14 +296,10 @@
               class="flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6"
             >
               <div class="flex items-center truncate space-x-3">
-                <div
-                  class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-pink-600"
-                ></div>
+                <div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-pink-600"></div>
                 <p class="font-medium truncate text-sm leading-6">
                   GraphQL API
-                  <span class="truncate font-normal text-gray-500"
-                    >in Engineering</span
-                  >
+                  <span class="truncate font-normal text-gray-500">in Engineering</span>
                 </p>
               </div>
               <svg
@@ -392,9 +321,7 @@
       </div>
       <!-- Projects table (small breakpoint and up) -->
       <div class="hidden mt-8 sm:block">
-        <div
-          class="align-middle inline-block min-w-full border-b border-gray-200"
-        >
+        <div class="align-middle inline-block min-w-full border-b border-gray-200">
           <table class="min-w-full">
             <thead>
               <tr class="border-t border-gray-200">
@@ -405,14 +332,10 @@
                 </th>
                 <th
                   class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Members
-                </th>
+                >Members</th>
                 <th
                   class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Last updated
-                </th>
+                >Last updated</th>
                 <th
                   class="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                 ></th>
@@ -424,59 +347,49 @@
                   class="px-6 py-3 max-w-0 w-full whitespace-no-wrap text-sm leading-5 font-medium text-gray-900"
                 >
                   <div class="flex items-center space-x-3 lg:pl-2">
-                    <div
-                      class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600"
-                    ></div>
+                    <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600"></div>
                     <a href="#" class="truncate hover:text-gray-600">
-                      <span
-                        >GraphQL API
-                        <span class="text-gray-500 font-normal"
-                          >in Engineering</span
-                        >
+                      <span>
+                        GraphQL API
+                        <span class="text-gray-500 font-normal">in Engineering</span>
                       </span>
                     </a>
                   </div>
                 </td>
-                <td
-                  class="px-6 py-3 text-sm leading-5 text-gray-500 font-medium"
-                >
+                <td class="px-6 py-3 text-sm leading-5 text-gray-500 font-medium">
                   <div class="flex items-center space-x-2">
                     <div class="flex flex-shrink-0 -space-x-1">
                       <img
                         class="max-w-none h-6 w-6 rounded-full text-white shadow-solid"
                         src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        alt
                       />
 
                       <img
                         class="max-w-none h-6 w-6 rounded-full text-white shadow-solid"
                         src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        alt
                       />
 
                       <img
                         class="max-w-none h-6 w-6 rounded-full text-white shadow-solid"
                         src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        alt
                       />
 
                       <img
                         class="max-w-none h-6 w-6 rounded-full text-white shadow-solid"
                         src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        alt
                       />
                     </div>
 
-                    <span class="flex-shrink-0 text-xs leading-5 font-medium"
-                      >+8</span
-                    >
+                    <span class="flex-shrink-0 text-xs leading-5 font-medium">+8</span>
                   </div>
                 </td>
                 <td
                   class="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right"
-                >
-                  March 17, 2020
-                </td>
+                >March 17, 2020</td>
                 <td class="pr-6">
                   <div class="relative flex justify-end items-center">
                     <button
@@ -485,11 +398,7 @@
                       type="button"
                       class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
                     >
-                      <svg
-                        class="w-5 h-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
+                      <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                         <path
                           d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
                         />
@@ -549,9 +458,7 @@
                               <path
                                 d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"
                               />
-                              <path
-                                d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"
-                              />
+                              <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
                             </svg>
                             Duplicate
                           </a>
@@ -630,8 +537,7 @@
             :editable="false"
             :options="polylineOptions"
             ref="polyline"
-          >
-          </gmap-polyline>
+          ></gmap-polyline>
           <GmapMarker
             :key="index"
             v-for="(encounter, index) in encounter_data"
@@ -646,9 +552,9 @@
 </template>
 
 <script>
-import EncounterSidebar from '@/components/EncounterSidebar'
+import EncounterSidebar from "@/components/EncounterSidebar";
 
-import mapStyle from '@/assets/map-styles'
+import mapStyle from "@/assets/map-styles";
 
 export default {
   components: {
@@ -662,7 +568,7 @@ export default {
         styles: mapStyle,
         streetViewControl: false,
         mapTypeControl: false,
-        gestureHandling: 'cooperative',
+        gestureHandling: "cooperative",
         fullscreenControlOptions: {
           position: 6,
         },
@@ -671,7 +577,7 @@ export default {
         },
       },
       polylineOptions: {
-        strokeColor: '#ffffff',
+        strokeColor: "#ffffff",
         strokeWeight: 4,
         geodesic: true,
       },
@@ -683,92 +589,92 @@ export default {
 
       encounterSidebar: false,
       sidebarData: {},
-    }
+    };
   },
 
   watch: {
     $route(to, from) {
       // react to route changes...
       // show loading
-      this.fetch_encounter_data(this.$route.params.id)
+      this.fetch_encounter_data(this.$route.params.id);
     },
 
     encounter_data() {
-      const encounters = this.encounter_data
-      const length = encounters.length
-      let totalLat = 0
-      let totalLng = 0
+      const encounters = this.encounter_data;
+      const length = encounters.length;
+      let totalLat = 0;
+      let totalLng = 0;
       encounters.map((encounter) => {
-        totalLat += encounter.location.latitude
-        totalLng += encounter.location.longitude
+        totalLat += encounter.location.latitude;
+        totalLng += encounter.location.longitude;
         this.path.push({
           lat: encounter.location.latitude,
           lng: encounter.location.longitude,
-        })
-      })
-      const newLat = totalLat / length
-      const newLng = totalLng / length
-      const newCenter = { lat: newLat, lng: newLng }
+        });
+      });
+      const newLat = totalLat / length;
+      const newLng = totalLng / length;
+      const newCenter = { lat: newLat, lng: newLng };
 
-      this.center = newCenter
+      this.center = newCenter;
     },
   },
 
   computed: {
     animal_data() {
       return this.$store.state.animals.find((animal) => {
-        return animal.id === this.$route.params.id
-      })
+        return animal.id === this.$route.params.id;
+      });
     },
   },
 
   methods: {
     latLng(encounter) {
-      const position = {}
-      const lat = encounter.location.latitude
-      const lng = encounter.location.longitude
-      position.lat = lat
-      position.lng = lng
-      return position
+      const position = {};
+      const lat = encounter.location.latitude;
+      const lng = encounter.location.longitude;
+      position.lat = lat;
+      position.lng = lng;
+      return position;
     },
 
     toggleEncounterSidebar() {
-      this.encounterSidebar = !this.encounterSidebar
+      this.encounterSidebar = !this.encounterSidebar;
     },
 
     expandSidebar(encounter) {
       const center = {
         lat: encounter.location.latitude,
         lng: encounter.location.longitude,
-      }
-      this.center = center
-      this.sidebarData = encounter
-      this.encounterSidebar = true
+      };
+      this.center = center;
+      this.sidebarData = encounter;
+      this.encounterSidebar = true;
     },
 
     fetch_encounter_data(animalId) {
-      const animalRef = this.$fireStore.collection('animals').doc(animalId)
+      const animalRef = this.$fireStore.collection("animals").doc(animalId);
       animalRef
-        .collection('encounters')
+        .collection("encounters")
         .get()
         .then((querySnapshot) => {
-          const documents = []
+          const documents = [];
           querySnapshot.forEach((doc) => {
-            const encounter = doc.data()
-            encounter.id = doc.id
-            documents.push(encounter)
-          })
-          this.encounter_data = documents
+            const encounter = doc.data();
+            encounter.id = doc.id;
+            documents.push(encounter);
+          });
+          this.encounter_data = documents;
           // close loading
         })
-        .catch(function(error) {
-          console.log('Error getting collection:', error)
-        })
+        .catch(function (error) {
+          console.log("Error getting collection:", error);
+        });
     },
   },
 
   created() {
-    this.fetch_encounter_data(this.$route.params.id)
+    this.fetch_encounter_data(this.$route.params.id);
   },
-}
+};
 </script>
