@@ -176,7 +176,6 @@ export default {
       // Stash the event so it can be triggered later.
       this.deferredPrompt = e
     })
-
     window.addEventListener('appinstalled', () => {
       console.log('appinstalled listener')
       this.deferredPrompt = null

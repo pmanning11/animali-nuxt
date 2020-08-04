@@ -46,6 +46,8 @@ import Logo from '@/components/Logo'
 import TheSidebar from '@/components/TheSidebar'
 import TheSearchBar from '@/components/TheSearchBar'
 
+var timeout
+
 export default {
   components: {
     Logo,
@@ -68,6 +70,7 @@ export default {
   methods: {
     closeNotification() {
       this.showNotification = false
+      clearTimeout(timeout)
     },
 
     presentNotification(e) {
@@ -76,7 +79,7 @@ export default {
       this.notificationBody = e.body
       this.notificationStatus = e.status
       // Delay 1 second then hide notification
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         this.showNotification = false
       }, 6000)
     },

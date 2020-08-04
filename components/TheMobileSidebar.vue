@@ -174,7 +174,6 @@
               </nuxt-link>
 
               <a
-                v-if="deferredPrompt"
                 @click="installApp"
                 class="cursor-pointer mt-2 group flex items-center px-2 py-3 text-lg leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
               >
