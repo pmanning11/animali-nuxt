@@ -49,12 +49,10 @@
         @closeSearchbar="showFullSearch = false"
       >
         <template v-slot:group="{ group_name }">
-          <p class="font-semibold text-primary">
-            {{ group_name }}
-          </p>
+          <p class="font-semibold text-primary">{{ group_name }}</p>
         </template>
 
-        <template v-slot:animals="{ suggestion }">
+        <template v-slot:Animals="{ suggestion }">
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               <img
@@ -199,7 +197,7 @@ export default {
 
     searchData() {
       const data = {
-        animals: {
+        Animals: {
           key: 'name',
           data: this.$store.state.animals,
         },
@@ -223,7 +221,7 @@ export default {
     },
 
     selected(item) {
-      if (item.animals) this.$router.push(`/animal/view/${item.animals.id}`)
+      if (item.Animals) this.$router.push(`/animal/view/${item.Animals.id}`)
       this.showFullSearch = false
     },
 

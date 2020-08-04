@@ -110,7 +110,6 @@
         </nuxt-link>
 
         <a
-          v-if="deferredPrompt"
           @click="installApp"
           class="cursor-pointer mt-2 group flex items-center px-2 py-2 text-base leading-5 font-medium text-white rounded-md hover:text-white hover:bg-teal-500 focus:outline-none focus:text-white focus:bg-teal-500 transition ease-in-out duration-150"
         >
@@ -147,6 +146,7 @@ export default {
       console.log('install app triggered')
 
       if (this.deferredPrompt) {
+        console.log('deferredPrompt exists')
         this.deferredPrompt.prompt()
         // Wait for the user to respond to the prompt:
         this.deferredPrompt.userChoice.then((choiceResult) => {
@@ -158,18 +158,14 @@ export default {
 
           this.deferredPrompt = null
         })
+      } else {
+        this.$emit('presentNotification', {
+          status: 'error',
+          title: 'Unsupported or already installed',
+          body:
+            'The app may already be installed or your browser may not support it',
+        })
       }
-
-      this.notificationStatus = 'error'
-      this.notificationTitle = 'Unsupported or already installed'
-      this.notificationBody =
-        'The app may already be installed or your browser may not support it'
-      this.showNotification = true
-
-      // Delay seconds then hide notification
-      setTimeout(() => {
-        this.showNotification = false
-      }, 6000)
     },
   },
 

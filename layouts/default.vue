@@ -4,7 +4,7 @@
     <div class="hidden md:flex md:flex-shrink-0">
       <div class="flex flex-col w-64">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <TheSidebar />
+        <TheSidebar @presentNotification="presentNotification" />
       </div>
     </div>
 
@@ -68,6 +68,17 @@ export default {
   methods: {
     closeNotification() {
       this.showNotification = false
+    },
+
+    presentNotification(e) {
+      this.showNotification = true
+      this.notificationTitle = e.title
+      this.notificationBody = e.body
+      this.notificationStatus = e.status
+      // Delay 1 second then hide notification
+      setTimeout(() => {
+        this.showNotification = false
+      }, 6000)
     },
   },
 
