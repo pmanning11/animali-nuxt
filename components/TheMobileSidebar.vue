@@ -249,16 +249,7 @@ export default {
     },
   },
 
-  created() {
-    console.log('default view created')
-    const programId = this.$store.state.user.programId
-
-    if (this.$store.state.animals.length < 1) {
-      this.$store.dispatch('fetchAnimals', programId).catch((err) => {
-        console.error(err)
-      })
-    }
-  },
+  created() {},
 
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (e) => {

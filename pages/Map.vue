@@ -13,7 +13,7 @@
     >
       <GmapCluster :zoomOnClick="true">
         <GmapMarker
-          v-for="(encounter, index) in encounter_data"
+          v-for="(encounter, index) in encounterData"
           :key="index"
           :position="latLng(encounter)"
           :clickable="true"
@@ -55,15 +55,15 @@ export default {
       infoOptions: {
         pixelOffset: { width: 0, height: -35 },
       },
-      encounter_data: [],
+
       animalSidebar: false,
       sidebarData: {},
     }
   },
 
   watch: {
-    encounter_data() {
-      const encounters = this.encounter_data
+    encounterData() {
+      const encounters = this.encounterData
       const length = encounters.length
       let totalLat = 0
       let totalLng = 0
@@ -79,8 +79,8 @@ export default {
   },
 
   computed: {
-    encounters() {
-      return this.encounter_data
+    encounterData() {
+      return this.$store.state.encounters
     },
   },
 
@@ -92,6 +92,21 @@ export default {
       position.lat = lat
       position.lng = lng
       return position
+    },
+
+    reCenter() {
+      const encounters = this.encounterData
+      const length = encounters.length
+      let totalLat = 0
+      let totalLng = 0
+      encounters.map((encounter) => {
+        totalLat += encounter.location.latitude
+        totalLng += encounter.location.longitude
+      })
+      const newLat = totalLat / length
+      const newLng = totalLng / length
+      const newCenter = { lat: newLat, lng: newLng }
+      this.center = newCenter
     },
 
     toggleAnimalSidebar() {
@@ -107,47 +122,10 @@ export default {
       this.sidebarData = encounter
       this.animalSidebar = true
     },
-
-    fetch_encounter_data(programId) {
-      const animalsRef = this.$fireStore
-        .collection('animals')
-        .where('managedBy', '==', programId)
-
-      animalsRef
-        .get()
-        .then((querySnapshot) => {
-          const encounters = []
-          querySnapshot.forEach((doc) => {
-            this.$fireStore
-              .collection('animals')
-              .doc(doc.id)
-              .collection('encounters')
-              .get()
-              .then((snapshot) => {
-                snapshot.forEach((encounter) => {
-                  const singleEncounter = encounter.data()
-                  singleEncounter.id = doc.id
-                  encounters.push(singleEncounter)
-                })
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-            this.encounter_data = encounters
-          })
-        })
-        .catch(function(error) {
-          console.log('Error getting encounters:', error)
-        })
-    },
   },
 
-  created() {
-    const programId = this.$store.state.user.programId
-
-    // Find animals "managedBy" == programId
-    // Get those animals encounters and push into this.encounter_data
-    this.fetch_encounter_data(programId)
+  mounted() {
+    this.reCenter()
   },
 }
 </script>

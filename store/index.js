@@ -4,7 +4,9 @@ export const strict = false
 
 export const state = () => ({
   user: null,
+  species: [],
   animals: [],
+  encounters: [],
   notification: null,
   bodyOverlay: null,
 })
@@ -53,6 +55,12 @@ export const mutations = {
     state.animals.splice(animalIndex, 1)
   },
 
+  // /////////////////////////////////////////////
+  // Encounters
+  // /////////////////////////////////////////////
+  SET_ENCOUNTERS(state, encounters) {
+    state.encounters = encounters
+  },
   // /////////////////////////////////////////////
   // Notifications
   // /////////////////////////////////////////////
@@ -416,49 +424,9 @@ export const actions = {
                     break
                 }
               })
-            commit('SET_ANIMALS', animals)
           })
         })
-
-      // const animalArray = []
-
-      // for (const animal of animals) {
-      //   console.log('animal const ', animal)
-      //   // Get profile image
-      //   const animalProfileRef = this.$fireStorage.ref(
-      //     `animals/${animal.id}/profile_pic.jpg`
-      //   )
-      //   // Get the download URL
-      //   await animalProfileRef
-      //     .getDownloadURL()
-      //     .then((url) => {
-      //       // const animal = doc.data()
-      //       animal.profile_pic = url
-      //       animalArray.push(animal)
-      //       console.log(animalArray)
-      //       // console.log('finished fetching animal')
-      //       // commit('ADD_ANIMAL', animal)
-      //     })
-      //     .catch(function(error) {
-      //       console.log(error)
-      //       // A full list of error codes is available at
-      //       // https://firebase.google.com/docs/storage/web/handle-errors
-      //       switch (error.code) {
-      //         case 'storage/object-not-found':
-      //           // File doesn't exist
-      //           break
-      //         case 'storage/unauthorized':
-      //           // User doesn't have permission to access the object
-      //           break
-      //         case 'storage/canceled':
-      //           // User canceled the upload
-      //           break
-      //         case 'storage/unknown':
-      //           // Unknown error occurred, inspect the server response
-      //           break
-      //       }
-      //     })
-      // }
+      commit('SET_ANIMALS', animals)
     } catch (err) {
       console.log('Error getting animals: ', err)
     }
@@ -502,5 +470,41 @@ export const actions = {
     } catch {
       console.log('Error getting animal: ', animalId)
     }
+  },
+
+  // /////////////////////////////////////////////
+  // Encounters
+  // /////////////////////////////////////////////
+  async fetchEncounters({ commit }, programId) {
+    const animalsRef = await this.$fireStore
+      .collection('animals')
+      .where('managedBy', '==', programId)
+
+    await animalsRef
+      .get()
+      .then(async (querySnapshot) => {
+        const encounters = []
+        await querySnapshot.forEach((doc) => {
+          this.$fireStore
+            .collection('animals')
+            .doc(doc.id)
+            .collection('encounters')
+            .get()
+            .then((snapshot) => {
+              snapshot.forEach((encounter) => {
+                const singleEncounter = encounter.data()
+                singleEncounter.id = doc.id
+                encounters.push(singleEncounter)
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        commit('SET_ENCOUNTERS', encounters)
+      })
+      .catch(function(error) {
+        console.log('Error getting encounters:', error)
+      })
   },
 }

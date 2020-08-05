@@ -1,5 +1,8 @@
 <template>
   <div class=" w-max-content">
+    <!-- <nuxt-link :to="`/animal/view/${content[0].id}`" class="flex items-center">
+      {{ content[0].name }}
+    </nuxt-link> -->
     <a :href="`/animal/view/${content[0].id}`" class="flex items-center">
       <!-- <img
         class="inline-block h-8 w-8 mr-2 rounded-full"

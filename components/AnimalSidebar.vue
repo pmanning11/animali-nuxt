@@ -128,19 +128,19 @@ export default {
   },
 
   watch: {
-    isSidebarActive(val) {
-      if (!val) return
-      if (Object.entries(this.data).length === 0) {
-        this.initValues()
-      } else {
-        const { id, location } = JSON.parse(JSON.stringify(this.data))
-        // this.getAnimalData(id)
-        this.animalId = id
-        this.encounterLocation = location
-        this.initValues()
-      }
-      // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
-    },
+    // isSidebarActive(val) {
+    // if (!val) return
+    // if (Object.entries(this.data).length === 0) {
+    //   this.initValues()
+    // } else {
+    //   const { id, location } = JSON.parse(JSON.stringify(this.data))
+    //   // this.getAnimalData(id)
+    //   this.animalId = id
+    //   this.encounterLocation = location
+    //   this.initValues()
+    // }
+    // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
+    // },
   },
 
   computed: {
