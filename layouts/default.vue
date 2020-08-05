@@ -94,6 +94,12 @@ export default {
         console.error(err)
       })
     }
+
+    if (this.$store.state.encounters.length < 1) {
+      this.$store.dispatch('fetchEncounters', programId).catch((err) => {
+        console.error(err)
+      })
+    }
   },
 }
 </script>

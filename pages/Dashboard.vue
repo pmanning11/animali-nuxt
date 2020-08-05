@@ -42,7 +42,7 @@
         >
           <div
             v-show="isTimeframeMenuOpen"
-            class="origin-top-right absolute right-2 top-10 w-32 rounded-md shadow-lg"
+            class="origin-top-right absolute right-2 top-10 w-32 rounded-md shadow-lg z-10"
           >
             <div
               class="py-1 rounded-md bg-white shadow-xs"
@@ -54,21 +54,21 @@
                 href="#"
                 class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
                 role="menuitem"
-                @click="changeTimeframe('week')"
+                @click="changeTimeframe('Week')"
                 >Last Week</a
               >
               <a
                 href="#"
                 class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
                 role="menuitem"
-                @click="changeTimeframe('month')"
+                @click="changeTimeframe('Month')"
                 >Last Month</a
               >
               <a
                 href="#"
                 class="block px-4 py-2 text-sm text-cool-gray-700 hover:bg-cool-gray-100 transition ease-in-out duration-150"
                 role="menuitem"
-                @click="changeTimeframe('year')"
+                @click="changeTimeframe('Year')"
                 >Last Year</a
               >
             </div>
@@ -81,67 +81,181 @@
       <!-- Replace with your content -->
       <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div class="bg-white overflow-hidden shadow rounded-lg">
-          <div class="px-4 py-5 sm:p-6">
-            <dl>
-              <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
-                Total Encounters
-              </dt>
-              <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                71,897
-              </dd>
-            </dl>
-          </div>
+          <dl class="px-4 pt-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
+              Encounters
+            </dt>
+            <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
+              234
+            </dd>
+          </dl>
+          <apexchart
+            type="area"
+            height="100"
+            :options="chartConfigs.lineChartOptions"
+            :series="encounters"
+          ></apexchart>
+        </div>
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <dl class="px-4 pt-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
+              Animals
+            </dt>
+            <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
+              5
+            </dd>
+          </dl>
+          <apexchart
+            type="area"
+            height="100"
+            :options="chartConfigs.lineChartOptions"
+            :series="animals"
+          ></apexchart>
+        </div>
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <dl class="px-4 pt-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
+              Contributors
+            </dt>
+            <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
+              44
+            </dd>
+          </dl>
+          <apexchart
+            type="area"
+            height="100"
+            :options="chartConfigs.lineChartOptions"
+            :series="contributors"
+          ></apexchart>
+        </div>
+      </div>
+
+      <div class="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div class="sm:col-span-2">
+          <grid
+            :auto-width="true"
+            :search="false"
+            :sort="true"
+            :fixedHeader="true"
+            :cols="columns"
+            :rows="encountersData"
+            :pagination="pagination"
+            :language="language"
+          ></grid>
         </div>
         <div class="bg-white overflow-hidden shadow rounded-lg">
           <div class="px-4 py-5 sm:p-6">
-            <dl>
-              <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
-                New Animals
-              </dt>
-              <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                58.16%
-              </dd>
-            </dl>
-          </div>
-        </div>
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-          <div class="px-4 py-5 sm:p-6">
-            <dl>
-              <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
-                Total Contributors
-              </dt>
-              <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                24.57%
-              </dd>
-            </dl>
+            <div class="text-sm leading-5 font-medium text-gray-500 truncate">
+              New vs. Returning Animals
+            </div>
+            <apexchart
+              type="pie"
+              :options="chartConfigs.pieChartOptions"
+              :series="newReturning"
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <!-- /End replace f-->
+    <!-- End replace-->
   </div>
 </template>
 
 <script>
+import VueApexCharts from 'vue-apexcharts'
+import chartConfigs from './chartConfigs'
+
 export default {
+  components: {
+    apexchart: VueApexCharts,
+    chartConfigs,
+  },
+
   middleware: 'auth',
 
   data() {
     return {
-      timeframe: 'week',
+      chartConfigs,
+      timeframe: 'Week',
       isTimeframeMenuOpen: false,
+
+      // SPARKLINE DATA
+      encounters: [
+        {
+          name: 'Encounters',
+          data: [24, 43, 10, 9, 29, 19, 22, 9, 12, 19, 5, 13, 9, 17, 2, 7, 5],
+        },
+      ],
+      animals: [
+        {
+          name: 'Animals',
+          data: [4, 53, 10, 9, 29, 19, 2, 9, 12, 7, 9, 5, 13, 9, 17, 2, 7, 5],
+        },
+      ],
+      contributors: [
+        {
+          name: 'Contributors',
+          data: [4, 3, 10, 9, 29, 9, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
+        },
+      ],
+
+      // PIE CHART
+      newReturning: [690, 258],
+
+      // GRID
+      columns: [
+        {
+          id: 'id',
+          name: 'ID',
+        },
+        {
+          id: 'timestamp',
+          name: 'Date',
+          formatter: (cell) =>
+            `${this.$moment(cell.seconds * 1000).format('ll')}`,
+        },
+        {
+          id: 'contributorName',
+          name: 'Contributor',
+        },
+      ],
+      language: {
+        pagination: {
+          previous: '⬅️',
+          next: '➡️',
+          showing: 'Displaying',
+          results: () => 'Animals',
+        },
+      },
+      pagination: {
+        enabled: true,
+        limit: 4,
+        summary: true,
+      },
     }
+  },
+
+  computed: {
+    encountersData() {
+      return this.$store.state.encounters
+
+      // filter by week
+
+      // filter by month
+
+      // filter by year
+    },
   },
 
   methods: {
     changeTimeframe(time) {
-      if (time === 'year') {
-        this.timeframe = 'year'
-      } else if (time === 'month') {
-        this.timeframe = 'month'
+      if (time === 'Year') {
+        this.timeframe = 'Year'
+      } else if (time === 'Month') {
+        this.timeframe = 'Month'
       } else {
-        this.timeframe = 'week'
+        this.timeframe = 'Week'
       }
       this.isTimeframeMenuOpen = false
     },
