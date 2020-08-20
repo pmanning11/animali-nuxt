@@ -1,9 +1,6 @@
 <template>
   <div class="md:hidden">
-    <div
-      :class="`fixed inset-0 flex ${isSidebarOpen ? 'z-50' : 'z-0'}`"
-      v-show="isSidebarOpen"
-    >
+    <div :class="`fixed inset-0 flex ${isSidebarOpen ? 'z-50' : 'z-0'}`" v-show="isSidebarOpen">
       <transition
         enter-active-class="transition-opacity ease-linear duration-300"
         enter-class="opacity-0"
@@ -12,11 +9,7 @@
         leave-class="opacity-100"
         leave-to-class="opacity-0"
       >
-        <div
-          class="fixed inset-0"
-          v-show="isSidebarOpen"
-          @click="$emit('close')"
-        >
+        <div class="fixed inset-0" v-show="isSidebarOpen" @click="$emit('close')">
           <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
         </div>
       </transition>
@@ -29,7 +22,7 @@
         Leaving: "transition ease-in-out duration-300 transform"
           From: "translate-x-0"
           To: "-translate-x-full"
-        -->
+      -->
       <transition
         enter-active-class="transition ease-in-out duration-300 transform"
         enter-class="-translate-x-full"
@@ -64,15 +57,9 @@
               </svg>
             </button>
           </div>
-          <nuxt-link
-            to="/dashboard"
-            class="flex-shrink-0 flex items-center px-6"
-            id="logo"
-          >
+          <nuxt-link to="/dashboard" class="flex-shrink-0 flex items-center px-6" id="logo">
             <logo class="h-8 w-auto mr-4 fill-current text-primary" />
-            <h1 class="font-national text-4xl font-medium text-primary">
-              Animali
-            </h1>
+            <h1 class="font-national text-4xl font-medium text-primary">Animali</h1>
           </nuxt-link>
           <div class="mt-5 flex flex-1 flex-col h-0 overflow-y-auto">
             <nav class="px-2">
@@ -191,7 +178,7 @@
                   />
                 </svg>
                 Install the App
-              </a> -->
+              </a>-->
             </nav>
           </div>
         </div>
@@ -215,54 +202,59 @@ export default {
   data() {
     return {
       deferredPrompt: null,
-    }
+    };
   },
 
   methods: {
     async installApp() {
-      console.log('install app triggered')
+      console.log("install app triggered");
 
       if (this.deferredPrompt) {
-        this.deferredPrompt.prompt()
+        this.deferredPrompt.prompt();
         // Wait for the user to respond to the prompt:
         this.deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt')
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the install prompt");
           } else {
-            console.log('User dismissed the install prompt')
+            console.log("User dismissed the install prompt");
           }
 
-          this.deferredPrompt = null
-        })
+          this.deferredPrompt = null;
+        });
       }
 
-      this.notificationStatus = 'error'
-      this.notificationTitle = 'Unsupported or already installed'
+      this.notificationStatus = "error";
+      this.notificationTitle = "Unsupported or already installed";
       this.notificationBody =
-        'The app may already be installed or your browser may not support it'
-      this.showNotification = true
+        "The app may already be installed or your browser may not support it";
+      this.showNotification = true;
 
       // Delay seconds then hide notification
       setTimeout(() => {
-        this.showNotification = false
-      }, 6000)
+        this.showNotification = false;
+      }, 6000);
     },
   },
 
   created() {},
 
   beforeMount() {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt listener')
-      e.preventDefault()
+    window.addEventListener("beforeinstallprompt", (e) => {
+      console.log("beforeinstallprompt listener");
+      e.preventDefault();
       // Stash the event so it can be triggered later.
-      this.deferredPrompt = e
-    })
+      this.deferredPrompt = e;
+    });
 
-    window.addEventListener('appinstalled', () => {
-      console.log('appinstalled listener')
-      this.deferredPrompt = null
-    })
+    window.addEventListener("appinstalled", () => {
+      console.log("appinstalled listener");
+      this.deferredPrompt = null;
+    });
   },
-}
+
+  // beforeDestroy() {
+  //   window.removeEventListener('beforeinstallprompt')
+  //   window.removeEventListener('appinstalled')
+  // },
+};
 </script>
