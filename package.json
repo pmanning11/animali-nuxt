@@ -1,31 +1,31 @@
 {
-  "name": "Animali",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "@nuxtjs/firebase": "^6.1.1",
-    "@nuxtjs/moment": "^1.6.1",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@tailwindcss/ui": "^0.4.0",
-    "apexcharts": "^3.20.0",
-    "firebase": "^7.17.1",
-    "gridjs-vue": "^0.5.2",
-    "nuxt": "^2.14.0",
-    "slugify": "^1.4.5",
-    "vue-apexcharts": "^1.6.0",
-    "vue-click-outside": "^1.1.0",
-    "vue2-google-maps": "^0.10.7",
-    "vuex-persistedstate": "^3.0.1"
-  },
-  "devDependencies": {
-    "@babel/runtime-corejs3": "^7.10.5",
-    "@nuxtjs/tailwindcss": "^2.1.0",
-    "core-js": "3"
-  }
+    "name": "animali",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "@nuxtjs/firebase": "^6.1.1",
+        "@nuxtjs/moment": "^1.6.1",
+        "@nuxtjs/pwa": "^3.0.0-beta.20",
+        "@tailwindcss/ui": "^0.4.0",
+        "apexcharts": "^3.20.0",
+        "firebase": "^7.17.1",
+        "gridjs-vue": "^0.5.2",
+        "nuxt": "^2.14.0",
+        "slugify": "^1.4.5",
+        "vue-apexcharts": "^1.6.0",
+        "vue-click-outside": "^1.1.0",
+        "vue2-google-maps": "^0.10.7",
+        "vuex-persistedstate": "^3.0.1"
+    },
+    "devDependencies": {
+        "@babel/runtime-corejs3": "^7.10.5",
+        "@nuxtjs/tailwindcss": "^2.1.0",
+        "core-js": "3"
+    }
 }
