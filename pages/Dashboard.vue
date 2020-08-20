@@ -201,12 +201,20 @@
                                         <div
                                             class="text-2xl leading-8 font-semibold text-gray-900"
                                         >
-                                            58.16%
+                                            {{ totalAnimals }}
                                         </div>
                                         <div
-                                            class="ml-2 flex items-baseline text-sm leading-5 font-semibold text-green-600"
+                                            class="ml-2 flex items-baseline text-sm leading-5 font-semibold"
+                                            :class="
+                                                `${
+                                                    animalChange >= 0
+                                                        ? 'text-green-600'
+                                                        : 'text-red-500'
+                                                }`
+                                            "
                                         >
                                             <svg
+                                                v-if="animalChange >= 0"
                                                 class="self-center flex-shrink-0 h-5 w-5 text-green-500"
                                                 fill="currentColor"
                                                 viewBox="0 0 20 20"
@@ -217,10 +225,22 @@
                                                     clip-rule="evenodd"
                                                 />
                                             </svg>
+                                            <svg
+                                                v-else
+                                                class="self-center flex-shrink-0 h-5 w-5 text-red-500"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd"
+                                                />
+                                            </svg>
                                             <span class="sr-only">
                                                 Increased by
                                             </span>
-                                            5.4%
+                                            {{ Math.abs(animalChange) }}
                                         </div>
                                     </dd>
                                 </dl>
@@ -269,12 +289,32 @@
                                         <div
                                             class="text-2xl leading-8 font-semibold text-gray-900"
                                         >
-                                            24.57
+                                            {{ totalContributors }}
                                         </div>
                                         <div
-                                            class="ml-2 flex items-baseline text-sm leading-5 font-semibold text-red-600"
+                                            class="ml-2 flex items-baseline text-sm leading-5 font-semibold"
+                                            :class="
+                                                `${
+                                                    contributorChange >= 0
+                                                        ? 'text-green-600'
+                                                        : 'text-red-500'
+                                                }`
+                                            "
                                         >
                                             <svg
+                                                v-if="contributorChange >= 0"
+                                                class="self-center flex-shrink-0 h-5 w-5 text-green-500"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
+                                                    clip-rule="evenodd"
+                                                />
+                                            </svg>
+                                            <svg
+                                                v-else
                                                 class="self-center flex-shrink-0 h-5 w-5 text-red-500"
                                                 fill="currentColor"
                                                 viewBox="0 0 20 20"
@@ -288,7 +328,7 @@
                                             <span class="sr-only">
                                                 Decreased by
                                             </span>
-                                            3.2%
+                                            {{ Math.abs(contributorChange) }}
                                         </div>
                                     </dd>
                                 </dl>
@@ -360,8 +400,12 @@ export default {
             timeframe: 'Week',
             isTimeframeMenuOpen: false,
 
-            // PIE CHART
-            newReturning: [690, 258],
+            // STATS
+            encounterChange: 0,
+            totalAnimals: 0,
+            animalChange: 0,
+            totalContributors: 0,
+            contributorChange: 0,
 
             // GRID
             columns: [
@@ -393,9 +437,9 @@ export default {
                 limit: 4,
                 summary: true
             },
-            encounterChange: 0,
-            animalChange: 0,
-            contributorChange: 0
+
+            // PIE CHART
+            newReturning: [1, 1]
         }
     },
 
@@ -427,6 +471,29 @@ export default {
                 })
 
                 this.encounterChange = thisYear.length - lastYear.length
+                this.totalAnimals = [
+                    ...new Set(thisYear.map(data => data.animalId))
+                ].length
+                this.animalChange =
+                    [...new Set(thisYear.map(data => data.animalId))].length -
+                    [...new Set(lastYear.map(data => data.animalId))].length
+                this.totalContributors = [
+                    ...new Set(thisYear.map(data => data.contributorId))
+                ].length
+                this.contributorChange =
+                    [...new Set(thisYear.map(data => data.contributorId))]
+                        .length -
+                    [...new Set(lastYear.map(data => data.contributorId))]
+                        .length
+                let firstEncounters = [
+                    ...new Set(
+                        thisYear.filter(data => data.firstEncounter === true)
+                    )
+                ].length
+                this.newReturning = [
+                    thisYear.length - firstEncounters,
+                    firstEncounters
+                ]
 
                 return thisYear
             } else if (this.timeframe === 'Month') {
@@ -453,6 +520,29 @@ export default {
                 })
 
                 this.encounterChange = thisMonth.length - lastMonth.length
+                this.totalAnimals = [
+                    ...new Set(thisMonth.map(data => data.animalId))
+                ].length
+                this.animalChange =
+                    [...new Set(thisMonth.map(data => data.animalId))].length -
+                    [...new Set(lastMonth.map(data => data.animalId))].length
+                this.totalContributors = [
+                    ...new Set(thisMonth.map(data => data.contributorId))
+                ].length
+                this.contributorChange =
+                    [...new Set(thisMonth.map(data => data.contributorId))]
+                        .length -
+                    [...new Set(lastMonth.map(data => data.contributorId))]
+                        .length
+                let firstEncounters = [
+                    ...new Set(
+                        thisMonth.filter(data => data.firstEncounter === true)
+                    )
+                ].length
+                this.newReturning = [
+                    thisMonth.length - firstEncounters,
+                    firstEncounters
+                ]
 
                 return thisMonth
             } else {
@@ -479,6 +569,29 @@ export default {
                 })
 
                 this.encounterChange = thisWeek.length - lastWeek.length - 1
+                this.totalAnimals = [
+                    ...new Set(thisWeek.map(data => data.animalId))
+                ].length
+                this.animalChange =
+                    [...new Set(thisWeek.map(data => data.animalId))].length -
+                    [...new Set(lastWeek.map(data => data.animalId))].length
+                this.totalContributors = [
+                    ...new Set(thisWeek.map(data => data.contributorId))
+                ].length
+                this.contributorChange =
+                    [...new Set(thisWeek.map(data => data.contributorId))]
+                        .length -
+                    [...new Set(lastWeek.map(data => data.contributorId))]
+                        .length
+                let firstEncounters = [
+                    ...new Set(
+                        thisWeek.filter(data => data.firstEncounter === true)
+                    )
+                ].length
+                this.newReturning = [
+                    thisWeek.length - firstEncounters,
+                    firstEncounters
+                ]
 
                 return thisWeek
             }
