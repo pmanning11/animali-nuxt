@@ -568,7 +568,7 @@ export default {
                     return date > twoWeekAgo && date < oneWeekAgo
                 })
 
-                this.encounterChange = thisWeek.length - lastWeek.length - 1
+                this.encounterChange = thisWeek.length - lastWeek.length
                 this.totalAnimals = [
                     ...new Set(thisWeek.map(data => data.animalId))
                 ].length
