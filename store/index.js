@@ -86,21 +86,122 @@ export const actions = {
         this.$router.push('/login')
     },
 
-    async register({ commit }, { data }) {
+    async setUserData({ commit }) {
+        const user = this.$fireAuth.currentUser
+
+        const userInfo = {}
+        await this.$fireStore
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then(snapshot => {
+                const currentUser = snapshot.data()
+                userInfo.firstName = currentUser.firstName
+                userInfo.lastName = currentUser.lastName
+                userInfo.email = currentUser.email
+                userInfo.programId = currentUser.programId
+                userInfo.userRole = currentUser.userRole
+            })
+
+        await this.$fireStore
+            .collection('programs')
+            .doc(userInfo.programId)
+            .get()
+            .then(snapshot => {
+                const program = snapshot.data()
+                const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+                    new Date(program.dateFounded.seconds * 1000)
+                ).toDate()
+                userInfo.programName = program.programName
+                userInfo.programSlug = program.programSlug
+                userInfo.imageLogo = program.imageLogo
+                userInfo.imageHeader = program.imageHeader
+                userInfo.description = program.description
+                userInfo.dateFounded = dateFoundedTimestamp
+                userInfo.programEmail = program.programEmail
+                userInfo.isPublic = program.isPublic
+                userInfo.linkDonate = program.linkDonate
+                userInfo.linkFacebook = program.linkFacebook
+                userInfo.linkInstagram = program.linkInstagram
+                userInfo.linkTwitter = program.linkTwitter
+                userInfo.linkWebsite = program.linkWebsite
+                userInfo.linkYoutube = program.linkYoutube
+                userInfo.locationArea = program.locationArea
+                userInfo.locationCity = program.locationCity
+                userInfo.locationCountry = program.locationCountry
+                userInfo.locationCoordinates = program.locationCoordinates
+                userInfo.primarySpecies = program.primarySpecies
+                userInfo.totalEncounters = program.totalEncounters || 0
+            })
+
+        commit('SET_USER', userInfo)
+    },
+
+    async register({ commit }, data) {
+        const self = this
+
         try {
-            // await this.$fireAuth.createUserWithEmailAndPassword(email, password)
-            // const user = this.$fireAuth.currentUser
-            // var actionCodeSettings = {
-            //   url: 'https://app.animali.life/dashboard?email=verified',
-            // }
-            // await user.sendEmailVerification(actionCodeSettings)
-            // const userInfo = {
-            //   id: user.uid,
-            //   email: user.email,
-            //   verified: user.emailVerified,
-            // }
-            // commit('SET_USER', userInfo)
+            // Create the user
+            await this.$fireAuth.createUserWithEmailAndPassword(
+                data.email,
+                data.password
+            )
+            const user = this.$fireAuth.currentUser
+
+            // Send verification email
+            var actionCodeSettings = {
+                url: 'https://app.animali.life/dashboard?email=verified'
+            }
+            await user.sendEmailVerification(actionCodeSettings)
+
+            // Create the program in the firestore
+            await this.$fireStore
+                .collection('programs')
+                .add({
+                    dateFounded: data.dateFounded,
+                    dateJoined: new Date(),
+                    description: data.description,
+                    imageHeader: '',
+                    imageLogo: '',
+                    isPublic: true,
+                    linkDonate: '',
+                    linkFacebook: '',
+                    linkInstagram: '',
+                    linkTwitter: '',
+                    linkWebsite: '',
+                    linkYoutube: '',
+                    locationArea: data.locationArea,
+                    locationCity: data.locationCity,
+                    locationCoordinates: '',
+                    locationCountry: data.locationCountry,
+                    ownerId: user.uid,
+                    primarySpecies: data.primarySpecies,
+                    programEmail: data.email,
+                    programName: data.programName,
+                    programSlug: data.slug
+                })
+                .then(docRef => {
+                    console.log(docRef)
+                    // Create the user account
+                    this.$fireStore
+                        .collection('users')
+                        .doc(user.uid)
+                        .set(
+                            {
+                                firstName: data.firstName,
+                                lastName: data.lastName,
+                                email: data.personalEmail,
+                                programId: docRef.id,
+                                userRole: 'admin'
+                            },
+                            { merge: true }
+                        )
+                })
+                .catch(error => {
+                    console.error('Error adding program: ', error)
+                })
         } catch (error) {
+            console.log(error)
             const self = this
             if (error.code === 'auth/email-already-in-use') {
                 console.log(error)
@@ -152,52 +253,55 @@ export const actions = {
         const userInfo = {}
         if (authUser) {
             // get the user data from firestore
-            await this.$fireStore
-                .collection('users')
-                .doc(authUser.uid)
-                .get()
-                .then(snapshot => {
-                    const currentUser = snapshot.data()
-                    userInfo.firstName = currentUser.firstName
-                    userInfo.lastName = currentUser.lastName
-                    userInfo.email = currentUser.email
-                    userInfo.programId = currentUser.programId
-                    userInfo.userRole = currentUser.userRole
-                })
+            setTimeout(async () => {
+                await this.$fireStore
+                    .collection('users')
+                    .doc(authUser.uid)
+                    .get()
+                    .then(snapshot => {
+                        const currentUser = snapshot.data()
+                        userInfo.firstName = currentUser.firstName
+                        userInfo.lastName = currentUser.lastName
+                        userInfo.email = currentUser.email
+                        userInfo.programId = currentUser.programId
+                        userInfo.userRole = currentUser.userRole
+                    })
 
-            await this.$fireStore
-                .collection('programs')
-                .doc(userInfo.programId)
-                .get()
-                .then(snapshot => {
-                    const program = snapshot.data()
-                    const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
-                        new Date(program.dateFounded.seconds * 1000)
-                    ).toDate()
-                    userInfo.programName = program.programName
-                    userInfo.programSlug = program.programSlug
-                    userInfo.imageLogo = program.imageLogo
-                    userInfo.imageHeader = program.imageHeader
-                    userInfo.description = program.description
-                    userInfo.dateFounded = dateFoundedTimestamp
-                    userInfo.programEmail = program.programEmail
-                    userInfo.isPublic = program.isPublic
-                    userInfo.linkDonate = program.linkDonate
-                    userInfo.linkFacebook = program.linkFacebook
-                    userInfo.linkInstagram = program.linkInstagram
-                    userInfo.linkTwitter = program.linkTwitter
-                    userInfo.linkWebsite = program.linkWebsite
-                    userInfo.linkYoutube = program.linkYoutube
-                    userInfo.locationArea = program.locationArea
-                    userInfo.locationCity = program.locationCity
-                    userInfo.locationCountry = program.locationCountry
-                    userInfo.locationCoordinates = program.locationCoordinates
-                    userInfo.primarySpecies = program.primarySpecies
-                    userInfo.totalEncounters = program.totalEncounters
-                })
+                await this.$fireStore
+                    .collection('programs')
+                    .doc(userInfo.programId)
+                    .get()
+                    .then(snapshot => {
+                        const program = snapshot.data()
+                        const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+                            new Date(program.dateFounded.seconds * 1000)
+                        ).toDate()
+                        userInfo.programName = program.programName
+                        userInfo.programSlug = program.programSlug
+                        userInfo.imageLogo = program.imageLogo
+                        userInfo.imageHeader = program.imageHeader
+                        userInfo.description = program.description
+                        userInfo.dateFounded = dateFoundedTimestamp
+                        userInfo.programEmail = program.programEmail
+                        userInfo.isPublic = program.isPublic
+                        userInfo.linkDonate = program.linkDonate
+                        userInfo.linkFacebook = program.linkFacebook
+                        userInfo.linkInstagram = program.linkInstagram
+                        userInfo.linkTwitter = program.linkTwitter
+                        userInfo.linkWebsite = program.linkWebsite
+                        userInfo.linkYoutube = program.linkYoutube
+                        userInfo.locationArea = program.locationArea
+                        userInfo.locationCity = program.locationCity
+                        userInfo.locationCountry = program.locationCountry
+                        userInfo.locationCoordinates =
+                            program.locationCoordinates
+                        userInfo.primarySpecies = program.primarySpecies
+                        userInfo.totalEncounters = program.totalEncounters || 0
+                    })
 
-            commit('SET_USER', userInfo)
-            this.$router.push('/dashboard')
+                commit('SET_USER', userInfo)
+                this.$router.push('/dashboard')
+            }, 3000)
         } else {
             console.log('Auth State Changed -> No User')
             commit('SET_USER', null)

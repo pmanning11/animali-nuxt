@@ -6,6 +6,7 @@
             :data="sidebarData"
         />
         <GmapMap
+            v-if="encounterData.length > 1"
             :center="center"
             :zoom="5"
             :options="mapOptions"
@@ -21,6 +22,19 @@
                 ></GmapMarker>
             </GmapCluster>
         </GmapMap>
+        <div v-else class="flex items-center justify-center h-screen -mt-32">
+            <div class="flex flex-col">
+                <div class="text-4xl font-light">No Encounters 🙈</div>
+                <div class="">
+                    <NuxtLink
+                        to="/add-encounter"
+                        class="text-teal-500 hover:text-primary"
+                        >Add Encounters</NuxtLink
+                    >
+                    to view your animals tracking on the map
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

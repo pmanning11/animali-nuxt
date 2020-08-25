@@ -143,14 +143,6 @@
                                 </dl>
                             </div>
                         </div>
-                        <div class="bg-cool-gray-50 px-5 py-3">
-                            <div class="text-sm leading-5">
-                                <a
-                                    href="#"
-                                    class="font-medium text-teal-600 hover:text-teal-900 transition ease-in-out duration-150"
-                                >View all</a>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Last Encounter -->
@@ -202,14 +194,6 @@
                                         >{{ lastEncounter.notes }}</dd>
                                     </div>
                                 </dl>
-                            </div>
-                        </div>
-                        <div class="bg-cool-gray-50 px-5 py-3">
-                            <div class="text-sm leading-5">
-                                <a
-                                    href="#"
-                                    class="font-medium text-teal-600 hover:text-teal-900 transition ease-in-out duration-150"
-                                >View all</a>
                             </div>
                         </div>
                     </div>
