@@ -341,14 +341,15 @@
                                     id="primary_species"
                                     class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                 >
-                                    <option value="Whale Shark"
+                                    <option value="whaleShark"
                                         >Whale Shark</option
                                     >
-                                    <option value="Humpback Whale"
+                                    <option value="mantaRay">Manta Ray</option>
+                                    <option value="humpbackWhale"
                                         >Humpback Whale</option
                                     >
-                                    <option value="Dolphin">Dolphin</option>
-                                    <option value="Great White Shark"
+                                    <option value="dolphin">Dolphin</option>
+                                    <option value="greatWhiteShark"
                                         >Great White Shark</option
                                     >
                                 </select>
