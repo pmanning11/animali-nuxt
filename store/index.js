@@ -253,55 +253,54 @@ export const actions = {
         const userInfo = {}
         if (authUser) {
             // get the user data from firestore
-            setTimeout(async () => {
-                await this.$fireStore
-                    .collection('users')
-                    .doc(authUser.uid)
-                    .get()
-                    .then(snapshot => {
-                        const currentUser = snapshot.data()
-                        userInfo.firstName = currentUser.firstName
-                        userInfo.lastName = currentUser.lastName
-                        userInfo.email = currentUser.email
-                        userInfo.programId = currentUser.programId
-                        userInfo.userRole = currentUser.userRole
-                    })
+            // setTimeout(async () => {
+            await this.$fireStore
+                .collection('users')
+                .doc(authUser.uid)
+                .get()
+                .then(snapshot => {
+                    const currentUser = snapshot.data()
+                    userInfo.firstName = currentUser.firstName
+                    userInfo.lastName = currentUser.lastName
+                    userInfo.email = currentUser.email
+                    userInfo.programId = currentUser.programId
+                    userInfo.userRole = currentUser.userRole
+                })
 
-                await this.$fireStore
-                    .collection('programs')
-                    .doc(userInfo.programId)
-                    .get()
-                    .then(snapshot => {
-                        const program = snapshot.data()
-                        const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
-                            new Date(program.dateFounded.seconds * 1000)
-                        ).toDate()
-                        userInfo.programName = program.programName
-                        userInfo.programSlug = program.programSlug
-                        userInfo.imageLogo = program.imageLogo
-                        userInfo.imageHeader = program.imageHeader
-                        userInfo.description = program.description
-                        userInfo.dateFounded = dateFoundedTimestamp
-                        userInfo.programEmail = program.programEmail
-                        userInfo.isPublic = program.isPublic
-                        userInfo.linkDonate = program.linkDonate
-                        userInfo.linkFacebook = program.linkFacebook
-                        userInfo.linkInstagram = program.linkInstagram
-                        userInfo.linkTwitter = program.linkTwitter
-                        userInfo.linkWebsite = program.linkWebsite
-                        userInfo.linkYoutube = program.linkYoutube
-                        userInfo.locationArea = program.locationArea
-                        userInfo.locationCity = program.locationCity
-                        userInfo.locationCountry = program.locationCountry
-                        userInfo.locationCoordinates =
-                            program.locationCoordinates
-                        userInfo.primarySpecies = program.primarySpecies
-                        userInfo.totalEncounters = program.totalEncounters || 0
-                    })
+            await this.$fireStore
+                .collection('programs')
+                .doc(userInfo.programId)
+                .get()
+                .then(snapshot => {
+                    const program = snapshot.data()
+                    const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+                        new Date(program.dateFounded.seconds * 1000)
+                    ).toDate()
+                    userInfo.programName = program.programName
+                    userInfo.programSlug = program.programSlug
+                    userInfo.imageLogo = program.imageLogo
+                    userInfo.imageHeader = program.imageHeader
+                    userInfo.description = program.description
+                    userInfo.dateFounded = dateFoundedTimestamp
+                    userInfo.programEmail = program.programEmail
+                    userInfo.isPublic = program.isPublic
+                    userInfo.linkDonate = program.linkDonate
+                    userInfo.linkFacebook = program.linkFacebook
+                    userInfo.linkInstagram = program.linkInstagram
+                    userInfo.linkTwitter = program.linkTwitter
+                    userInfo.linkWebsite = program.linkWebsite
+                    userInfo.linkYoutube = program.linkYoutube
+                    userInfo.locationArea = program.locationArea
+                    userInfo.locationCity = program.locationCity
+                    userInfo.locationCountry = program.locationCountry
+                    userInfo.locationCoordinates = program.locationCoordinates
+                    userInfo.primarySpecies = program.primarySpecies
+                    userInfo.totalEncounters = program.totalEncounters || 0
+                })
 
-                commit('SET_USER', userInfo)
-                this.$router.push('/dashboard')
-            }, 3000)
+            commit('SET_USER', userInfo)
+            this.$router.push('/dashboard')
+            // }, 1000)
         } else {
             console.log('Auth State Changed -> No User')
             commit('SET_USER', null)
@@ -617,6 +616,90 @@ export const actions = {
             })
             .catch(function(error) {
                 console.log('Error getting encounters:', error)
+            })
+    },
+
+    async submitEncounter({ commit }, payload) {
+        // if uploaded by ownerId verified is true
+        const user = this.$fireAuth.currentUser
+        await this.$fireStore
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then(async snapshot => {
+                const currentUser = snapshot.data()
+
+                if (payload.newAnimal === true) {
+                    // create animal id
+
+                    // add animal
+                    const animalRef = this.$firestore
+                        .collection('animals')
+                        .doc()
+
+                    await animalRef.add({
+                        dateFirstSeen: new this.$fireStoreObj.Timestamp.fromDate(
+                            new Date(payload.date)
+                        ).toDate(),
+                        dateLastSeen: null,
+                        encounterFirst: null,
+                        encounterLast: null,
+                        // id
+                        // length
+                        managedBy: user.uid,
+                        name: payload.animalName,
+                        // sex: 'male',
+                        species: payload.primarySpecies,
+                        status: 'active',
+                        totalEncounters: 1
+                        // weight: 0
+                    })
+                }
+
+                // add encounter
+                const encountersRef = this.$fireStore
+                    .collection('animals')
+                    .doc(payload.animal.id)
+                    .collection('encounters')
+
+                // add encounter in firestore
+                await encountersRef
+                    .add({
+                        contributorId: user.uid,
+                        contributorName:
+                            currentUser.firstName + ' ' + currentUser.lastName,
+                        injury: payload.injury,
+                        location: new this.$fireStoreObj.GeoPoint(
+                            payload.coordinates.lat,
+                            payload.coordinates.lng
+                        ),
+                        notes: payload.notes,
+                        timestamp: new this.$fireStoreObj.Timestamp.fromDate(
+                            new Date(payload.date)
+                        ).toDate(),
+                        verified: true
+                    })
+                    .then(async docRef => {
+                        // upload encounter image
+                        const animalEncounterRef = this.$fireStorage.ref(
+                            `animals/${payload.animal.id}/encounters/${docRef.id}/primary_encounter.jpg`
+                        )
+
+                        try {
+                            const snapshot = await animalEncounterRef.putString(
+                                payload.photo,
+                                'data_url'
+                            )
+                        } catch (e) {
+                            alert(e.message)
+                        }
+                    })
+
+                // navigate to animal page
+                this.$router.push(`/animal/view/${payload.animal.id}`)
+            })
+            .catch(err => {
+                console.log(err)
             })
     }
 }
