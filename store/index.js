@@ -227,10 +227,18 @@ export const actions = {
                     })
                     .catch(function(err) {
                         console.log('error here: ', err)
-                        throw new Error(
-                            'An Error Ocurred trying to connect with FB: ',
-                            err
-                        )
+
+                        // throw new Error(
+                        //     'An Error Ocurred trying to connect with FB: ',
+                        //     err
+                        // )
+                        if (err === "auth/wrong-password") {
+
+                        } else if (err === "auth/user-not-found") {
+
+                        } else {
+                            // something unknown happened
+                        }
                         commit('SET_NOTIFICATION', err)
                     })
             } else {
