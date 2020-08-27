@@ -897,6 +897,83 @@
                                             placeholder=""
                                         />
                                     </div>
+
+                                    <label
+                                        for="sex"
+                                        class="block mt-4 text-sm font-medium leading-5 text-gray-700"
+                                    >
+                                        Sex
+                                    </label>
+                                    <select
+                                        v-model="sex"
+                                        id="gender"
+                                        class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    >
+                                        <option value="male" selected
+                                            >Male</option
+                                        >
+                                        <option value="female">Female</option>
+                                    </select>
+
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-2 sm:gap-4"
+                                    >
+                                        <div class="mt-4">
+                                            <label
+                                                for="length"
+                                                class="block text-sm font-medium leading-5 text-gray-700"
+                                                >Est. Length/Height</label
+                                            >
+                                            <div
+                                                class="mt-1 relative rounded-md shadow-sm"
+                                            >
+                                                <input
+                                                    v-model="length"
+                                                    type="number"
+                                                    id="length"
+                                                    class="form-input block w-full pl-7 pr-10 text-right sm:text-sm sm:leading-5"
+                                                    placeholder="230"
+                                                />
+                                                <div
+                                                    class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                                                >
+                                                    <span
+                                                        class="text-gray-500 sm:text-sm sm:leading-5"
+                                                    >
+                                                        CM
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <label
+                                                for="weight"
+                                                class="block text-sm font-medium leading-5 text-gray-700"
+                                                >Est. Weight</label
+                                            >
+                                            <div
+                                                class="mt-1 relative rounded-md shadow-sm"
+                                            >
+                                                <input
+                                                    v-model="weight"
+                                                    type="number"
+                                                    id="weight"
+                                                    class="form-input block w-full pl-7 pr-10 text-right sm:text-sm sm:leading-5"
+                                                    placeholder="14"
+                                                />
+                                                <div
+                                                    class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                                                >
+                                                    <span
+                                                        class="text-gray-500 sm:text-sm sm:leading-5"
+                                                    >
+                                                        KG
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="mt-4">
@@ -939,7 +1016,7 @@
                         </div>
                     </form>
 
-                    <div class="mt-6 flex justify-between mx-auto max-w-2xl">
+                    <div class="mt-6 flex justify-between mx-auto max-w-xl">
                         <span class="block w-2/5 rounded-md shadow-sm">
                             <button
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md bg-animali-700 hover:bg-primary active:bg-secondary text-white focus:outline-none transition duration-150 ease-in-out"
@@ -1029,7 +1106,10 @@ export default {
             showFullSearch: false,
             comparisonAnimal: this.$store.state.animals[0],
             injury: false,
-            notes: null
+            notes: null,
+            sex: 'male',
+            length: null,
+            weight: null
         }
     },
 
@@ -1166,7 +1246,10 @@ export default {
                 coordinates: this.reportedMapCenter,
                 animal: this.comparisonAnimal,
                 injury: this.injury === 'false' ? false : true,
-                notes: this.notes
+                notes: this.notes,
+                sex: this.sex,
+                length: this.length,
+                weight: this.weight
             }
 
             this.$store.dispatch('submitEncounter', data).catch(err => {

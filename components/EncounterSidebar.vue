@@ -85,7 +85,7 @@
                                             <p
                                                 class="text-sm leading-5 text-gray-500"
                                             >
-                                                @{{ this.data.contributorId }}
+                                                Contributor
                                             </p>
                                         </div>
                                         <!-- <div class="flex flex-wrap">

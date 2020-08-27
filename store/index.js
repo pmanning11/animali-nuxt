@@ -42,10 +42,9 @@ export const mutations = {
     SET_ANIMALS(state, animals) {
         state.animals = animals
     },
-    // ADD_ANIMAL(state, animal) {
-    //   console.log(animal)
-    //   state.animals.push(animal)
-    // },
+    ADD_ANIMAL(state, animal) {
+        state.animals.push(animal)
+    },
     UPDATE_ANIMAL(state, animal) {
         const animalIndex = state.animals.findIndex(a => a.id === animal.id)
         Object.assign(state.animals[animalIndex], animal)
@@ -54,12 +53,14 @@ export const mutations = {
         const animalIndex = state.animals.findIndex(u => u.id === itemId)
         state.animals.splice(animalIndex, 1)
     },
-
     // /////////////////////////////////////////////
     // Encounters
     // /////////////////////////////////////////////
     SET_ENCOUNTERS(state, encounters) {
         state.encounters = encounters
+    },
+    ADD_ENCOUNTER(state, encounter) {
+        state.encounters.push(encounter)
     },
     // /////////////////////////////////////////////
     // Notifications
@@ -67,7 +68,6 @@ export const mutations = {
     SET_NOTIFICATION(state, notification) {
         state.notification = notification
     },
-
     // ////////////////////////////////////////////
     // UI
     // ////////////////////////////////////////////
@@ -146,6 +146,7 @@ export const actions = {
                 data.email,
                 data.password
             )
+
             const user = this.$fireAuth.currentUser
 
             // Send verification email
@@ -248,6 +249,56 @@ export const actions = {
         }
     },
 
+    async getUserData({ commit }) {
+        // get the user data from firestore
+        // setTimeout(async () => {
+        await this.$fireStore
+            .collection('users')
+            .doc(authUser.uid)
+            .get()
+            .then(snapshot => {
+                const currentUser = snapshot.data()
+                userInfo.firstName = currentUser.firstName
+                userInfo.lastName = currentUser.lastName
+                userInfo.email = currentUser.email
+                userInfo.programId = currentUser.programId
+                userInfo.userRole = currentUser.userRole
+            })
+
+        await this.$fireStore
+            .collection('programs')
+            .doc(userInfo.programId)
+            .get()
+            .then(snapshot => {
+                const program = snapshot.data()
+                const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+                    new Date(program.dateFounded.seconds * 1000)
+                ).toDate()
+                userInfo.programName = program.programName
+                userInfo.programSlug = program.programSlug
+                userInfo.imageLogo = program.imageLogo
+                userInfo.imageHeader = program.imageHeader
+                userInfo.description = program.description
+                userInfo.dateFounded = dateFoundedTimestamp
+                userInfo.programEmail = program.programEmail
+                userInfo.isPublic = program.isPublic
+                userInfo.linkDonate = program.linkDonate
+                userInfo.linkFacebook = program.linkFacebook
+                userInfo.linkInstagram = program.linkInstagram
+                userInfo.linkTwitter = program.linkTwitter
+                userInfo.linkWebsite = program.linkWebsite
+                userInfo.linkYoutube = program.linkYoutube
+                userInfo.locationArea = program.locationArea
+                userInfo.locationCity = program.locationCity
+                userInfo.locationCountry = program.locationCountry
+                userInfo.locationCoordinates = program.locationCoordinates
+                userInfo.primarySpecies = program.primarySpecies
+                userInfo.totalEncounters = program.totalEncounters || 0
+            })
+
+        commit('SET_USER', userInfo)
+    },
+
     async onAuthStateChanged({ commit }, { authUser, claims }) {
         console.log('getUserInfo from onauthstatechanged')
         const userInfo = {}
@@ -300,7 +351,7 @@ export const actions = {
 
             commit('SET_USER', userInfo)
             this.$router.push('/dashboard')
-            // }, 1000)
+            // }, 500)
         } else {
             console.log('Auth State Changed -> No User')
             commit('SET_USER', null)
@@ -630,41 +681,245 @@ export const actions = {
                 const currentUser = snapshot.data()
 
                 if (payload.newAnimal === true) {
-                    // create animal id
+                    // create animal id, add animal, and increment count
+                    await this.$fireStore
+                        .collection('species')
+                        .doc(payload.primarySpecies)
+                        .get()
+                        .then(async doc => {
+                            const species = doc.data()
+                            const animalDocRef =
+                                species.prefix + (species.count + 1)
+                            // add animal
+                            await this.$fireStore
+                                .collection('animals')
+                                .doc(animalDocRef)
+                                .set({
+                                    dateFirstSeen: new this.$fireStoreObj.Timestamp.fromDate(
+                                        new Date(payload.date)
+                                    ).toDate(),
+                                    dateLastSeen: new this.$fireStoreObj.Timestamp.fromDate(
+                                        new Date(payload.date)
+                                    ).toDate(),
+                                    encounterFirst: null,
+                                    encounterLast: null,
+                                    id: animalDocRef,
+                                    length: Number(payload.length) || 0,
+                                    managedBy: currentUser.programId,
+                                    name: payload.animalName || 'not named',
+                                    sex: payload.sex,
+                                    species: payload.primarySpecies,
+                                    status: 'active',
+                                    totalEncounters: 1,
+                                    weight: Number(payload.weight) || 0
+                                })
+                                .then(async () => {
+                                    // Increment count for species
+                                    const increment = this.$fireStoreObj.FieldValue.increment(
+                                        1
+                                    )
+                                    await this.$fireStore
+                                        .collection('species')
+                                        .doc(payload.primarySpecies)
+                                        .update({ count: increment })
+                                        .catch(err => {
+                                            console.log(err)
+                                        })
 
-                    // add animal
-                    const animalRef = this.$firestore
+                                    // add encounter
+                                    const encountersRef = this.$fireStore
+                                        .collection('animals')
+                                        .doc(animalDocRef)
+                                        .collection('encounters')
+
+                                    // add encounter in firestore
+                                    await encountersRef
+                                        .add({
+                                            contributorId: user.uid,
+                                            contributorName:
+                                                currentUser.firstName +
+                                                ' ' +
+                                                currentUser.lastName,
+                                            injury: payload.injury,
+                                            location: new this.$fireStoreObj.GeoPoint(
+                                                payload.coordinates.lat,
+                                                payload.coordinates.lng
+                                            ),
+                                            notes: payload.notes || '',
+                                            timestamp: new this.$fireStoreObj.Timestamp.fromDate(
+                                                new Date(payload.date)
+                                            ).toDate(),
+                                            verified: true
+                                        })
+                                        .then(async encounterDocRef => {
+                                            // upload encounter image
+                                            const animalEncounterRef = this.$fireStorage.ref(
+                                                `animals/${animalDocRef}/encounters/${encounterDocRef.id}/primary_encounter.jpg`
+                                            )
+                                            // upload
+                                            const animalProfileRef = this.$fireStorage.ref(
+                                                `animals/${animalDocRef}/profile_pic.jpg`
+                                            )
+
+                                            try {
+                                                await animalEncounterRef.putString(
+                                                    payload.photo,
+                                                    'data_url'
+                                                )
+                                                await animalProfileRef.putString(
+                                                    payload.photo,
+                                                    'data_url'
+                                                )
+                                            } catch (e) {
+                                                alert(e.message)
+                                            }
+
+                                            // add first encounter id to animal
+                                            await this.$fireStore
+                                                .collection('animals')
+                                                .doc(animalDocRef)
+                                                .update({
+                                                    encounterFirst:
+                                                        encounterDocRef.id,
+                                                    encounterLast:
+                                                        encounterDocRef.id
+                                                })
+                                                .catch(err => {
+                                                    console.log(err)
+                                                })
+
+                                            // commit animal and encounter to vuex
+                                            const newAnimal = {
+                                                dateFirstSeen: new this.$fireStoreObj.Timestamp.fromDate(
+                                                    new Date(payload.date)
+                                                ).toDate(),
+                                                dateLastSeen: new this.$fireStoreObj.Timestamp.fromDate(
+                                                    new Date(payload.date)
+                                                ).toDate(),
+                                                encounterFirst:
+                                                    encounterDocRef.id,
+                                                encounterLast:
+                                                    encounterDocRef.id,
+                                                id: animalDocRef,
+                                                length:
+                                                    Number(payload.length) || 0,
+                                                managedBy:
+                                                    currentUser.programId,
+                                                name:
+                                                    payload.animalName ||
+                                                    'not named',
+                                                sex: payload.sex,
+                                                species: payload.primarySpecies,
+                                                status: 'active',
+                                                totalEncounters: 1,
+                                                weight:
+                                                    Number(payload.weight) || 0
+                                            }
+                                            const newEncounter = {
+                                                contributorId: user.uid,
+                                                contributorName:
+                                                    currentUser.firstName +
+                                                    ' ' +
+                                                    currentUser.lastName,
+                                                injury: payload.injury,
+                                                location: new this.$fireStoreObj.GeoPoint(
+                                                    payload.coordinates.lat,
+                                                    payload.coordinates.lng
+                                                ),
+                                                notes: payload.notes || '',
+                                                timestamp: new this.$fireStoreObj.Timestamp.fromDate(
+                                                    new Date(payload.date)
+                                                ).toDate(),
+                                                verified: true
+                                            }
+                                            await commit(
+                                                'ADD_ANIMAL',
+                                                newAnimal
+                                            )
+                                            await commit(
+                                                'ADD_ENCOUNTER',
+                                                newEncounter
+                                            )
+                                            // navigate to animal page
+                                            this.$router.push(
+                                                `/animal/view/${animalDocRef}`
+                                            )
+                                        })
+                                        .catch(err => {
+                                            console.log(err)
+                                        })
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    // Returning encounter
+                    // add encounter
+                    const encountersRef = this.$fireStore
                         .collection('animals')
-                        .doc()
+                        .doc(payload.animal.id)
+                        .collection('encounters')
 
-                    await animalRef.add({
-                        dateFirstSeen: new this.$fireStoreObj.Timestamp.fromDate(
-                            new Date(payload.date)
-                        ).toDate(),
-                        dateLastSeen: null,
-                        encounterFirst: null,
-                        encounterLast: null,
-                        // id
-                        // length
-                        managedBy: user.uid,
-                        name: payload.animalName,
-                        // sex: 'male',
-                        species: payload.primarySpecies,
-                        status: 'active',
-                        totalEncounters: 1
-                        // weight: 0
-                    })
-                }
+                    // add encounter in firestore
+                    await encountersRef
+                        .add({
+                            contributorId: user.uid,
+                            contributorName:
+                                currentUser.firstName +
+                                ' ' +
+                                currentUser.lastName,
+                            injury: payload.injury,
+                            location: new this.$fireStoreObj.GeoPoint(
+                                payload.coordinates.lat,
+                                payload.coordinates.lng
+                            ),
+                            notes: payload.notes || '',
+                            timestamp: new this.$fireStoreObj.Timestamp.fromDate(
+                                new Date(payload.date)
+                            ).toDate(),
+                            verified: true
+                        })
+                        .then(async docRef => {
+                            // Increment count for animal
+                            const increment = this.$fireStoreObj.FieldValue.increment(
+                                1
+                            )
+                            await this.$fireStore
+                                .collection('animals')
+                                .doc(payload.animal.id)
+                                .update({ totalEncounters: increment })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                            // Increment count for species
+                            await this.$fireStore
+                                .collection('species')
+                                .doc(payload.primarySpecies)
+                                .update({ count: increment })
+                                .catch(err => {
+                                    console.log(err)
+                                })
 
-                // add encounter
-                const encountersRef = this.$fireStore
-                    .collection('animals')
-                    .doc(payload.animal.id)
-                    .collection('encounters')
+                            // upload encounter image
+                            const animalEncounterRef = this.$fireStorage.ref(
+                                `animals/${payload.animal.id}/encounters/${docRef.id}/primary_encounter.jpg`
+                            )
 
-                // add encounter in firestore
-                await encountersRef
-                    .add({
+                            try {
+                                const snapshot = await animalEncounterRef.putString(
+                                    payload.photo,
+                                    'data_url'
+                                )
+                            } catch (e) {
+                                alert(e.message)
+                            }
+                        })
+                    // commit encounter to vuex
+                    const newEncounter = {
                         contributorId: user.uid,
                         contributorName:
                             currentUser.firstName + ' ' + currentUser.lastName,
@@ -673,30 +928,16 @@ export const actions = {
                             payload.coordinates.lat,
                             payload.coordinates.lng
                         ),
-                        notes: payload.notes,
+                        notes: payload.notes || '',
                         timestamp: new this.$fireStoreObj.Timestamp.fromDate(
                             new Date(payload.date)
                         ).toDate(),
                         verified: true
-                    })
-                    .then(async docRef => {
-                        // upload encounter image
-                        const animalEncounterRef = this.$fireStorage.ref(
-                            `animals/${payload.animal.id}/encounters/${docRef.id}/primary_encounter.jpg`
-                        )
-
-                        try {
-                            const snapshot = await animalEncounterRef.putString(
-                                payload.photo,
-                                'data_url'
-                            )
-                        } catch (e) {
-                            alert(e.message)
-                        }
-                    })
-
-                // navigate to animal page
-                this.$router.push(`/animal/view/${payload.animal.id}`)
+                    }
+                    await commit('ADD_ENCOUNTER', newEncounter)
+                    // navigate to animal page
+                    this.$router.push(`/animal/view/${payload.animal.id}`)
+                }
             })
             .catch(err => {
                 console.log(err)
