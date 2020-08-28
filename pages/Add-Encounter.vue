@@ -43,9 +43,7 @@
                                             ? 'text-animali-700'
                                             : 'text-gray-500'
                                     "
-                                >
-                                    01
-                                </p>
+                                >01</p>
                             </div>
                             <p
                                 class="text-sm leading-5 font-medium"
@@ -54,15 +52,11 @@
                                         ? 'text-animali-700'
                                         : 'text-gray-500'
                                 "
-                            >
-                                Species
-                            </p>
+                            >Species</p>
                         </div>
                     </a>
 
-                    <div
-                        class="hidden md:block absolute top-0 right-0 h-full w-5"
-                    >
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5">
                         <svg
                             class="h-full w-full text-gray-300"
                             viewBox="0 0 22 80"
@@ -117,9 +111,7 @@
                                         ? 'text-animali-700'
                                         : 'text-gray-500'
                                 "
-                            >
-                                02
-                            </p>
+                            >02</p>
                         </div>
                         <p
                             class="text-sm leading-5 font-medium"
@@ -128,14 +120,10 @@
                                     ? 'text-animali-700'
                                     : 'text-gray-500'
                             "
-                        >
-                            Photo
-                        </p>
+                        >Photo</p>
                     </div>
 
-                    <div
-                        class="hidden md:block absolute top-0 right-0 h-full w-5"
-                    >
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5">
                         <svg
                             class="h-full w-full text-gray-300"
                             viewBox="0 0 22 80"
@@ -189,9 +177,7 @@
                                         ? 'text-animali-700'
                                         : 'text-gray-500'
                                 "
-                            >
-                                03
-                            </p>
+                            >03</p>
                         </div>
                         <p
                             class="text-sm leading-5 font-medium"
@@ -200,14 +186,10 @@
                                     ? 'text-animali-700'
                                     : 'text-gray-500'
                             "
-                        >
-                            Date & Location
-                        </p>
+                        >Date & Location</p>
                     </div>
 
-                    <div
-                        class="hidden md:block absolute top-0 right-0 h-full w-5"
-                    >
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5">
                         <svg
                             class="h-full w-full text-gray-300"
                             viewBox="0 0 22 80"
@@ -262,8 +244,7 @@
                                             ? 'text-animali-700'
                                             : 'text-gray-500'
                                     "
-                                    >04</span
-                                >
+                                >04</span>
                             </div>
                             <p
                                 class="text-sm leading-5 font-medium"
@@ -272,14 +253,10 @@
                                         ? 'text-animali-700'
                                         : 'text-gray-500'
                                 "
-                            >
-                                Compare
-                            </p>
+                            >Compare</p>
                         </div>
                     </a>
-                    <div
-                        class="hidden md:block absolute top-0 right-0 h-full w-5"
-                    >
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5">
                         <svg
                             class="h-full w-full text-gray-300"
                             viewBox="0 0 22 80"
@@ -334,8 +311,7 @@
                                             ? 'text-animali-700'
                                             : 'text-gray-500'
                                     "
-                                    >05</span
-                                >
+                                >05</span>
                             </div>
                             <p
                                 class="text-sm leading-5 font-medium"
@@ -344,9 +320,7 @@
                                         ? 'text-animali-700'
                                         : 'text-gray-500'
                                 "
-                            >
-                                Submit
-                            </p>
+                            >Submit</p>
                         </div>
                     </a>
                 </li>
@@ -361,8 +335,7 @@
                         <label
                             for="primary_species"
                             class="block text-sm font-medium leading-5 text-gray-700"
-                            >Select animal species</label
-                        >
+                        >Select animal species</label>
                         <select
                             v-model="primarySpecies"
                             id="primary_species"
@@ -370,13 +343,9 @@
                         >
                             <option value="whaleShark">Whale Shark</option>
                             <option value="mantaRay">Manta Ray</option>
-                            <option value="humpbackWhale"
-                                >Humpback Whale</option
-                            >
+                            <option value="humpbackWhale">Humpback Whale</option>
                             <option value="dolphin">Dolphin</option>
-                            <option value="greatWhiteShark"
-                                >Great White Shark</option
-                            >
+                            <option value="greatWhiteShark">Great White Shark</option>
                         </select>
                     </div>
 
@@ -391,9 +360,7 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="nextStep(1)"
-                            >
-                                Next
-                            </button>
+                            >Next</button>
                         </span>
                     </div>
                 </div>
@@ -402,9 +369,7 @@
                     <div class="mt-6 mx-auto max-w-lg">
                         <label
                             class="block text-sm leading-5 font-medium text-gray-700"
-                        >
-                            Upload a photo
-                        </label>
+                        >Upload a photo</label>
                         <input
                             type="file"
                             ref="photoInput"
@@ -418,9 +383,7 @@
                                 type="button"
                                 @click="selectPhoto"
                                 class="py-2 px-3 mt-4 mb-4 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                            >
-                                Change Photo
-                            </button>
+                            >Change Photo</button>
                             <img
                                 :src="photo"
                                 alt="upload photo"
@@ -454,9 +417,7 @@
                                         Upload a file
                                     </button>
                                 </p>
-                                <p class="mt-1 text-xs text-gray-500">
-                                    PNG, JPG up to 5MB
-                                </p>
+                                <p class="mt-1 text-xs text-gray-500">PNG, JPG up to 5MB</p>
                             </div>
                         </div>
                     </div>
@@ -472,9 +433,7 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="prevStep(2)"
-                            >
-                                Prev
-                            </button>
+                            >Prev</button>
                         </span>
                         <span class="block w-2/5 rounded-md shadow-sm">
                             <button
@@ -486,9 +445,7 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="nextStep(2)"
-                            >
-                                Next
-                            </button>
+                            >Next</button>
                         </span>
                     </div>
                 </div>
@@ -496,23 +453,26 @@
                 <div v-else-if="currentStep === 3">
                     <div class="mt-6 max-w-lg mx-auto">
                         <label
-                            for="encountertime"
+                            for="encounterdate"
                             class="block text-sm font-medium leading-5 text-gray-700"
-                            >Set Date and Location</label
-                        >
+                        >Set Date</label>
                         <div class="mt-1 relative rounded-md shadow-sm">
                             <input
                                 v-model="date"
                                 type="datetime-local"
-                                id="encountertime"
-                                class="form-input block w-full sm:text-sm sm:leading-5"
-                                name="birthdaytime"
+                                id="encounterdate"
+                                class="form-input block w-full h-12 sm:text-sm sm:leading-5"
+                                name="encounterdate"
                             />
                         </div>
                     </div>
 
+                    <label
+                        for="encountertime"
+                        class="mt-4 block text-sm max-w-lg mx-auto font-medium leading-5 text-gray-700"
+                    >Set Location</label>
                     <GmapMap
-                        class="mt-4 max-w-lg max-h-80 mx-auto"
+                        class="mt-1 max-w-lg max-h-80 mx-auto"
                         :center="this.mapCenter"
                         :zoom="2"
                         :options="this.mapOptions"
@@ -522,23 +482,19 @@
                         @click="this.setMarker"
                         style="width: 100%; height: 500px"
                     >
-                        <GmapMarker
-                            v-model="marker"
-                            :position="this.mapCenter"
-                        />
+                        <GmapMarker v-model="marker" :position="this.mapCenter" />
                     </GmapMap>
-                    <div class="grid grid-cols-2 gap-1 max-w-lg mt-2 mx-auto">
+                    <div class="grid grid-cols-2 gap-1 max-w-lg mt-4 mx-auto">
                         <div>
                             <label
                                 for="latitude"
                                 class="block text-sm font-medium leading-5 text-gray-700"
-                                >Latitude</label
-                            >
+                            >Latitude</label>
                             <input
                                 v-model.number.lazy="reportedMapCenter.lat"
                                 id="latitude"
                                 step="0.00001"
-                                class="form-input mt-2 w-full sm:text-sm sm:leading-5"
+                                class="form-input mt-1 w-full sm:text-sm sm:leading-5"
                                 name="latitude"
                                 @change="this.syncMap"
                             />
@@ -547,13 +503,12 @@
                             <label
                                 for="longitude"
                                 class="block text-sm font-medium leading-5 text-gray-700"
-                                >Latitude</label
-                            >
+                            >Longitude</label>
                             <input
                                 v-model.number.lazy="reportedMapCenter.lng"
                                 id="longitude"
                                 step="0.00001"
-                                class="form-input mt-2 w-full sm:text-sm sm:leading-5"
+                                class="form-input mt-1 w-full sm:text-sm sm:leading-5"
                                 name="longitude"
                                 @change="this.syncMap"
                             />
@@ -571,9 +526,7 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="prevStep(3)"
-                            >
-                                Prev
-                            </button>
+                            >Prev</button>
                         </span>
                         <span class="block w-2/5 rounded-md shadow-sm">
                             <button
@@ -585,23 +538,17 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="nextStep(3)"
-                            >
-                                Next
-                            </button>
+                            >Next</button>
                         </span>
                     </div>
                 </div>
 
                 <div v-else-if="currentStep === 4">
-                    <div
-                        class="mt-6 max-w-5xl grid grid-cols-1 sm:grid-cols-2 sm:gap-4 mx-auto"
-                    >
+                    <div class="mt-6 max-w-5xl grid grid-cols-1 sm:grid-cols-2 sm:gap-4 mx-auto">
                         <div>
                             <h3
                                 class="text-center text-lg leading-6 font-medium text-gray-900"
-                            >
-                                Your Encounter
-                            </h3>
+                            >Your Encounter</h3>
                             <img
                                 v-if="photo !== null"
                                 :src="photo"
@@ -616,11 +563,10 @@
                         <div v-if="newAnimal === false">
                             <h3
                                 class="text-center text-lg leading-6 font-medium text-gray-900"
-                            >
-                                Comparison
-                            </h3>
+                            >Comparison</h3>
 
                             <AutoSuggest
+                                id="add-encounter-suggest"
                                 ref="navbarSearch"
                                 :autoFocus="showFullSearch"
                                 :data="searchData"
@@ -634,9 +580,7 @@
                                 @closeSearchbar="showFullSearch = false"
                             >
                                 <template v-slot:Animals="{ suggestion }">
-                                    <div
-                                        class="flex items-center justify-between"
-                                    >
+                                    <div class="flex items-center justify-between">
                                         <div class="flex items-center">
                                             <img
                                                 :src="suggestion.profile_pic"
@@ -645,9 +589,11 @@
                                             />
                                             <div class="leading-none mt-1">
                                                 <p>{{ suggestion.name }}</p>
-                                                <small>{{
+                                                <small>
+                                                    {{
                                                     suggestion.id
-                                                }}</small>
+                                                    }}
+                                                </small>
                                             </div>
                                         </div>
                                         <small>{{ suggestion.status }}</small>
@@ -721,18 +667,14 @@
                                 "
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="prevStep(4)"
-                            >
-                                Prev
-                            </button>
+                            >Prev</button>
                         </span>
                         <span class="block w-full py-4 sm:w-1/5">
                             <button
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium bg-animali-600 hover:bg-primary active:bg-secondary rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="nextStep(4)"
                                 @click="newAnimal = true"
-                            >
-                                New Animal
-                            </button>
+                            >New Animal</button>
                         </span>
                         <span class="block w-full py-4 sm:w-1/5">
                             <button
@@ -745,9 +687,7 @@
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="nextStep(4)"
                                 @click="newAnimal = false"
-                            >
-                                Match with {{ comparisonAnimal.id }}
-                            </button>
+                            >Match with {{ comparisonAnimal.id }}</button>
                         </span>
                     </div>
                 </div>
@@ -757,14 +697,8 @@
                         <div>
                             <div>
                                 <div>
-                                    <h3
-                                        class="text-lg leading-6 font-medium text-gray-900"
-                                    >
-                                        Review
-                                    </h3>
-                                    <p
-                                        class="mt-1 text-sm leading-5 text-gray-500"
-                                    >
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Review</h3>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
                                         Review encounter information before
                                         uploading to the database.
                                     </p>
@@ -776,21 +710,15 @@
                                         <label
                                             for="species"
                                             class="block text-sm font-medium leading-5 text-gray-700"
-                                        >
-                                            Species
-                                        </label>
-                                        <p class="mt-2 text-sm text-gray-500">
-                                            {{ primarySpecies }}
-                                        </p>
+                                        >Species</label>
+                                        <p class="mt-2 text-sm text-gray-500">{{ primarySpecies }}</p>
                                     </div>
 
                                     <div class="sm:col-span-6">
                                         <label
                                             for="photo"
                                             class="block text-sm leading-5 font-medium text-gray-700"
-                                        >
-                                            Photo
-                                        </label>
+                                        >Photo</label>
                                         <div v-if="photo !== null">
                                             <img
                                                 :src="photo"
@@ -804,12 +732,10 @@
                                         <label
                                             for="date"
                                             class="block text-sm font-medium leading-5 text-gray-700"
-                                        >
-                                            Date
-                                        </label>
+                                        >Date</label>
                                         <p class="mt-2 text-sm text-gray-500">
                                             {{
-                                                this.$moment(date).format('lll')
+                                            this.$moment(date).format('lll')
                                             }}
                                         </p>
                                     </div>
@@ -818,9 +744,7 @@
                                         <label
                                             for="map"
                                             class="block text-sm font-medium leading-5 text-gray-700"
-                                        >
-                                            Location
-                                        </label>
+                                        >Location</label>
                                         <p class="mt-2 text-sm text-gray-500">
                                             {{ reportedMapCenter.lat }},
                                             {{ reportedMapCenter.lng }}
@@ -848,12 +772,8 @@
                                 <div>
                                     <h3
                                         class="text-lg leading-6 font-medium text-gray-900"
-                                    >
-                                        Animal Information
-                                    </h3>
-                                    <p
-                                        class="mt-1 text-sm leading-5 text-gray-500"
-                                    >
+                                    >Animal Information</h3>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
                                         This is the animal you are submitting an
                                         encounter for.
                                     </p>
@@ -864,9 +784,7 @@
                                         <label
                                             for="name"
                                             class="block text-sm font-medium leading-5 text-gray-700"
-                                        >
-                                            Name
-                                        </label>
+                                        >Name</label>
                                         {{ comparisonAnimal.name }}
                                     </div>
 
@@ -874,9 +792,7 @@
                                         <label
                                             for="id"
                                             class="block text-sm font-medium leading-5 text-gray-700"
-                                        >
-                                            Identification
-                                        </label>
+                                        >Identification</label>
                                         {{ comparisonAnimal.id }}
                                     </div>
                                 </div>
@@ -884,49 +800,36 @@
                                     <label
                                         for="newName"
                                         class="block text-sm font-medium leading-5 text-gray-700"
-                                    >
-                                        Enter New Animal Name
-                                    </label>
-                                    <div
-                                        class="mt-1 relative rounded-md shadow-sm"
-                                    >
+                                    >Enter New Animal Name</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
                                         <input
                                             v-model="animalName"
                                             id="newName"
                                             class="form-input block w-full sm:text-sm sm:leading-5"
-                                            placeholder=""
+                                            placeholder
                                         />
                                     </div>
 
                                     <label
                                         for="sex"
                                         class="block mt-4 text-sm font-medium leading-5 text-gray-700"
-                                    >
-                                        Sex
-                                    </label>
+                                    >Sex</label>
                                     <select
                                         v-model="sex"
                                         id="gender"
                                         class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     >
-                                        <option value="male" selected
-                                            >Male</option
-                                        >
+                                        <option value="male" selected>Male</option>
                                         <option value="female">Female</option>
                                     </select>
 
-                                    <div
-                                        class="grid grid-cols-1 sm:grid-cols-2 sm:gap-4"
-                                    >
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-4">
                                         <div class="mt-4">
                                             <label
                                                 for="length"
                                                 class="block text-sm font-medium leading-5 text-gray-700"
-                                                >Est. Length/Height</label
-                                            >
-                                            <div
-                                                class="mt-1 relative rounded-md shadow-sm"
-                                            >
+                                            >Est. Length/Height</label>
+                                            <div class="mt-1 relative rounded-md shadow-sm">
                                                 <input
                                                     v-model="length"
                                                     type="number"
@@ -939,9 +842,7 @@
                                                 >
                                                     <span
                                                         class="text-gray-500 sm:text-sm sm:leading-5"
-                                                    >
-                                                        CM
-                                                    </span>
+                                                    >CM</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -950,11 +851,8 @@
                                             <label
                                                 for="weight"
                                                 class="block text-sm font-medium leading-5 text-gray-700"
-                                                >Est. Weight</label
-                                            >
-                                            <div
-                                                class="mt-1 relative rounded-md shadow-sm"
-                                            >
+                                            >Est. Weight</label>
+                                            <div class="mt-1 relative rounded-md shadow-sm">
                                                 <input
                                                     v-model="weight"
                                                     type="number"
@@ -967,9 +865,7 @@
                                                 >
                                                     <span
                                                         class="text-gray-500 sm:text-sm sm:leading-5"
-                                                    >
-                                                        KG
-                                                    </span>
+                                                    >KG</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -980,16 +876,13 @@
                                     <label
                                         for="injury"
                                         class="block text-sm leading-5 font-medium text-gray-700"
-                                        >Injury?</label
-                                    >
+                                    >Injury?</label>
                                     <select
                                         v-model="injury"
                                         id="injury"
                                         class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     >
-                                        <option value="false" selected
-                                            >No</option
-                                        >
+                                        <option value="false" selected>No</option>
                                         <option value="true">Yes</option>
                                     </select>
                                 </div>
@@ -998,9 +891,7 @@
                                     <label
                                         for="notes"
                                         class="block text-sm font-medium leading-5 text-gray-700"
-                                    >
-                                        Other Notes
-                                    </label>
+                                    >Other Notes</label>
                                     <div class="mt-1 rounded-md shadow-sm">
                                         <textarea
                                             v-model="notes"
@@ -1021,9 +912,7 @@
                             <button
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md bg-animali-700 hover:bg-primary active:bg-secondary text-white focus:outline-none transition duration-150 ease-in-out"
                                 @click.prevent="prevStep(5)"
-                            >
-                                Prev
-                            </button>
+                            >Prev</button>
                         </span>
                         <span class="block w-2/5 rounded-md shadow-sm">
                             <button
@@ -1053,7 +942,7 @@
                                         class="opacity-75"
                                         fill="currentColor"
                                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
+                                    />
                                 </svg>
                                 Submit
                             </button>
@@ -1089,18 +978,18 @@ export default {
                 styles: mapStyle,
                 streetViewControl: false,
                 mapTypeControl: false,
-                gestureHandling: 'cooperative'
+                gestureHandling: 'cooperative',
             },
             mapCenter: null,
             reportedMapCenter: {
                 lat: 24.132,
-                lng: 9.445
+                lng: 9.445,
             },
             marker: {
                 position: {
                     lat: 11,
-                    lng: 43
-                }
+                    lng: 43,
+                },
             },
 
             showFullSearch: false,
@@ -1109,7 +998,7 @@ export default {
             notes: null,
             sex: 'male',
             length: null,
-            weight: null
+            weight: null,
         }
     },
 
@@ -1118,13 +1007,13 @@ export default {
             const data = {
                 Animals: {
                     key: 'name',
-                    data: this.$store.state.animals
-                }
+                    data: this.$store.state.animals,
+                },
             }
             return data
         },
 
-        animalsToCompare() {}
+        animalsToCompare() {},
     },
 
     created() {
@@ -1136,7 +1025,7 @@ export default {
         updateCenter(latLng) {
             this.reportedMapCenter = {
                 lat: latLng.lat(),
-                lng: latLng.lng()
+                lng: latLng.lng(),
             }
         },
 
@@ -1147,7 +1036,7 @@ export default {
         setMarker(e) {
             this.mapCenter = {
                 lat: e.latLng.lat(),
-                lng: e.latLng.lng()
+                lng: e.latLng.lng(),
             }
             this.reportedMapCenter = this.mapCenter
         },
@@ -1162,7 +1051,7 @@ export default {
             const self = this
             if (file) {
                 const reader = new FileReader()
-                reader.addEventListener('load', function() {
+                reader.addEventListener('load', function () {
                     console.log(this)
                     self.photo = this.result
                 })
@@ -1249,14 +1138,14 @@ export default {
                 notes: this.notes,
                 sex: this.sex,
                 length: this.length,
-                weight: this.weight
+                weight: this.weight,
             }
 
             this.$store.dispatch('submitEncounter', data).catch(err => {
                 this.isLoading = false
                 console.log(err)
             })
-        }
-    }
+        },
+    },
 }
 </script>
