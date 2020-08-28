@@ -210,158 +210,111 @@ export const actions = {
         }
     },
 
-    async login({ commit }, { checkbox_remember_me, email, password }) {
-        const self = this
+    // async getUserData() {
+    //     const user = this.$fireAuth.currentUser
 
-        try {
-            // If remember_me is enabled change firebase Persistence
-            if (!checkbox_remember_me) {
-                this.$fireAuth
-                    .setPersistence(this.$fireAuthObj.Auth.Persistence.SESSION)
-                    .then(async function() {
-                        const user = await self.$fireAuth.signInWithEmailAndPassword(
-                            email,
-                            password
-                        )
-                        self.$router.push('/dashboard')
-                    })
-                    .catch(function(err) {
-                        console.log('error here: ', err)
+    //     await this.$fireStore
+    //         .collection('users')
+    //         .doc(user.uid)
+    //         .get()
+    //         .then(snapshot => {
+    //             const currentUser = snapshot.data()
+    //             userInfo.firstName = currentUser.firstName
+    //             userInfo.lastName = currentUser.lastName
+    //             userInfo.email = currentUser.email
+    //             userInfo.programId = currentUser.programId
+    //             userInfo.userRole = currentUser.userRole
+    //         })
 
-                        // throw new Error(
-                        //     'An Error Ocurred trying to connect with FB: ',
-                        //     err
-                        // )
-                        if (err === "auth/wrong-password") {
+    //     await this.$fireStore
+    //         .collection('programs')
+    //         .doc(userInfo.programId)
+    //         .get()
+    //         .then(snapshot => {
+    //             const program = snapshot.data()
+    //             const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+    //                 new Date(program.dateFounded.seconds * 1000)
+    //             ).toDate()
+    //             userInfo.programName = program.programName
+    //             userInfo.programSlug = program.programSlug
+    //             userInfo.imageLogo = program.imageLogo
+    //             userInfo.imageHeader = program.imageHeader
+    //             userInfo.description = program.description
+    //             userInfo.dateFounded = dateFoundedTimestamp
+    //             userInfo.programEmail = program.programEmail
+    //             userInfo.isPublic = program.isPublic
+    //             userInfo.linkDonate = program.linkDonate
+    //             userInfo.linkFacebook = program.linkFacebook
+    //             userInfo.linkInstagram = program.linkInstagram
+    //             userInfo.linkTwitter = program.linkTwitter
+    //             userInfo.linkWebsite = program.linkWebsite
+    //             userInfo.linkYoutube = program.linkYoutube
+    //             userInfo.locationArea = program.locationArea
+    //             userInfo.locationCity = program.locationCity
+    //             userInfo.locationCountry = program.locationCountry
+    //             userInfo.locationCoordinates = program.locationCoordinates
+    //             userInfo.primarySpecies = program.primarySpecies
+    //             userInfo.totalEncounters = program.totalEncounters || 0
+    //         })
 
-                        } else if (err === "auth/user-not-found") {
-
-                        } else {
-                            // something unknown happened
-                        }
-                        commit('SET_NOTIFICATION', err)
-                    })
-            } else {
-                // If Remember me NOT checked -> Try to login
-                const user = await this.$fireAuth.signInWithEmailAndPassword(
-                    email,
-                    password
-                )
-                this.$router.push('/dashboard')
-            }
-        } catch (error) {
-            throw new Error(
-                'An Error Ocurred trying to connect with FB: ',
-                error
-            )
-        }
-    },
-
-    async getUserData({ commit }) {
-        // get the user data from firestore
-        // setTimeout(async () => {
-        await this.$fireStore
-            .collection('users')
-            .doc(authUser.uid)
-            .get()
-            .then(snapshot => {
-                const currentUser = snapshot.data()
-                userInfo.firstName = currentUser.firstName
-                userInfo.lastName = currentUser.lastName
-                userInfo.email = currentUser.email
-                userInfo.programId = currentUser.programId
-                userInfo.userRole = currentUser.userRole
-            })
-
-        await this.$fireStore
-            .collection('programs')
-            .doc(userInfo.programId)
-            .get()
-            .then(snapshot => {
-                const program = snapshot.data()
-                const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
-                    new Date(program.dateFounded.seconds * 1000)
-                ).toDate()
-                userInfo.programName = program.programName
-                userInfo.programSlug = program.programSlug
-                userInfo.imageLogo = program.imageLogo
-                userInfo.imageHeader = program.imageHeader
-                userInfo.description = program.description
-                userInfo.dateFounded = dateFoundedTimestamp
-                userInfo.programEmail = program.programEmail
-                userInfo.isPublic = program.isPublic
-                userInfo.linkDonate = program.linkDonate
-                userInfo.linkFacebook = program.linkFacebook
-                userInfo.linkInstagram = program.linkInstagram
-                userInfo.linkTwitter = program.linkTwitter
-                userInfo.linkWebsite = program.linkWebsite
-                userInfo.linkYoutube = program.linkYoutube
-                userInfo.locationArea = program.locationArea
-                userInfo.locationCity = program.locationCity
-                userInfo.locationCountry = program.locationCountry
-                userInfo.locationCoordinates = program.locationCoordinates
-                userInfo.primarySpecies = program.primarySpecies
-                userInfo.totalEncounters = program.totalEncounters || 0
-            })
-
-        commit('SET_USER', userInfo)
-    },
+    //     commit('SET_USER', userInfo)
+    //     // this.$router.push('/dashboard')
+    // },
 
     async onAuthStateChanged({ commit }, { authUser, claims }) {
-        console.log('getUserInfo from onauthstatechanged')
+        console.log('onauthstatechanged')
         const userInfo = {}
         if (authUser) {
             // get the user data from firestore
-            // setTimeout(async () => {
-            await this.$fireStore
-                .collection('users')
-                .doc(authUser.uid)
-                .get()
-                .then(snapshot => {
-                    const currentUser = snapshot.data()
-                    userInfo.firstName = currentUser.firstName
-                    userInfo.lastName = currentUser.lastName
-                    userInfo.email = currentUser.email
-                    userInfo.programId = currentUser.programId
-                    userInfo.userRole = currentUser.userRole
-                })
-
-            await this.$fireStore
-                .collection('programs')
-                .doc(userInfo.programId)
-                .get()
-                .then(snapshot => {
-                    const program = snapshot.data()
-                    const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
-                        new Date(program.dateFounded.seconds * 1000)
-                    ).toDate()
-                    userInfo.programName = program.programName
-                    userInfo.programSlug = program.programSlug
-                    userInfo.imageLogo = program.imageLogo
-                    userInfo.imageHeader = program.imageHeader
-                    userInfo.description = program.description
-                    userInfo.dateFounded = dateFoundedTimestamp
-                    userInfo.programEmail = program.programEmail
-                    userInfo.isPublic = program.isPublic
-                    userInfo.linkDonate = program.linkDonate
-                    userInfo.linkFacebook = program.linkFacebook
-                    userInfo.linkInstagram = program.linkInstagram
-                    userInfo.linkTwitter = program.linkTwitter
-                    userInfo.linkWebsite = program.linkWebsite
-                    userInfo.linkYoutube = program.linkYoutube
-                    userInfo.locationArea = program.locationArea
-                    userInfo.locationCity = program.locationCity
-                    userInfo.locationCountry = program.locationCountry
-                    userInfo.locationCoordinates = program.locationCoordinates
-                    userInfo.primarySpecies = program.primarySpecies
-                    userInfo.totalEncounters = program.totalEncounters || 0
-                })
-
-            commit('SET_USER', userInfo)
-            this.$router.push('/dashboard')
-            // }, 500)
+            setTimeout(async () => {
+                await this.$fireStore
+                    .collection('users')
+                    .doc(authUser.uid)
+                    .get()
+                    .then(snapshot => {
+                        const currentUser = snapshot.data()
+                        userInfo.firstName = currentUser.firstName
+                        userInfo.lastName = currentUser.lastName
+                        userInfo.email = currentUser.email
+                        userInfo.programId = currentUser.programId
+                        userInfo.userRole = currentUser.userRole
+                    })
+                await this.$fireStore
+                    .collection('programs')
+                    .doc(userInfo.programId)
+                    .get()
+                    .then(snapshot => {
+                        const program = snapshot.data()
+                        const dateFoundedTimestamp = this.$fireStoreObj.Timestamp.fromDate(
+                            new Date(program.dateFounded.seconds * 1000)
+                        ).toDate()
+                        userInfo.programName = program.programName
+                        userInfo.programSlug = program.programSlug
+                        userInfo.imageLogo = program.imageLogo
+                        userInfo.imageHeader = program.imageHeader
+                        userInfo.description = program.description
+                        userInfo.dateFounded = dateFoundedTimestamp
+                        userInfo.programEmail = program.programEmail
+                        userInfo.isPublic = program.isPublic
+                        userInfo.linkDonate = program.linkDonate
+                        userInfo.linkFacebook = program.linkFacebook
+                        userInfo.linkInstagram = program.linkInstagram
+                        userInfo.linkTwitter = program.linkTwitter
+                        userInfo.linkWebsite = program.linkWebsite
+                        userInfo.linkYoutube = program.linkYoutube
+                        userInfo.locationArea = program.locationArea
+                        userInfo.locationCity = program.locationCity
+                        userInfo.locationCountry = program.locationCountry
+                        userInfo.locationCoordinates =
+                            program.locationCoordinates
+                        userInfo.primarySpecies = program.primarySpecies
+                        userInfo.totalEncounters = program.totalEncounters || 0
+                    })
+                commit('SET_USER', userInfo)
+                this.$router.push('/dashboard')
+            }, 1500)
         } else {
-            console.log('Auth State Changed -> No User')
+            console.log('onAuthStateChanged -> No User')
             commit('SET_USER', null)
             authUser = null
             claims = null
