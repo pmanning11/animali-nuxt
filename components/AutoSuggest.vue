@@ -1,6 +1,6 @@
 <template>
     <div class="vx-auto-suggest">
-        <div class="flex items-center relative h-full">
+        <div class="relative flex items-center h-full">
             <!-- Input -->
             <input
                 ref="input"
@@ -21,7 +21,7 @@
         <ul
             ref="scrollContainer"
             :class="{ hidden: !inputFocused }"
-            class="auto-suggest-suggestions-list z-50 rounded-lg mt-2 shadow-lg overflow-x-hidden"
+            class="z-50 mt-2 overflow-x-hidden rounded-lg shadow-lg auto-suggest-suggestions-list"
             @mouseenter="insideSuggestions = true"
             @mouseleave="insideSuggestions = false"
             @focus="updateInputFocus"
@@ -36,7 +36,7 @@
             >
                 <!-- Group Header -->
                 <p
-                    class="auto-suggest__suggestion-group-title pt-3 pb-1 px-4"
+                    class="px-4 pt-3 pb-1 auto-suggest__suggestion-group-title"
                     v-if="!hideGroupTitle"
                 >
                     <slot name="group" :group_name="grp_name"></slot>
@@ -47,11 +47,11 @@
                     <li
                         v-for="(suggestion, index) in suggestion_list"
                         :key="index"
-                        class="auto-suggest__suggestion-group__suggestion py-3 px-4 cursor-pointer"
+                        class="px-4 py-3 cursor-pointer auto-suggest__suggestion-group__suggestion"
                         :class="{
-              'vx-auto-suggest__current-selected':
-                currentSelected == `${grp_index}.${index}`,
-            }"
+                            'vx-auto-suggest__current-selected':
+                                currentSelected == `${grp_index}.${index}`
+                        }"
                         @mouseenter="currentSelected = `${grp_index}.${index}`"
                         @click="suggestionSelected"
                     >
@@ -59,7 +59,7 @@
                     </li>
 
                     <li
-                        class="auto-suggest__suggestion-group__suggestion py-3 px-4 no-results"
+                        class="px-4 py-3 auto-suggest__suggestion-group__suggestion no-results"
                         v-if="!suggestion_list.length && searchQuery"
                     >
                         <slot name="noResult" :group_name="grp_name">
@@ -77,35 +77,35 @@ export default {
     props: {
         placeholder: {
             type: String,
-            default: 'Search..',
+            default: 'Search..'
         },
         data: {
             type: Object,
-            required: true,
+            required: true
         },
         initalData: {
             type: Object,
-            default: () => new Object(),
+            default: () => new Object()
         },
         inputClasses: {
-            type: [String, Object, Array],
+            type: [String, Object, Array]
         },
         autoFocus: {
             type: Boolean,
-            default: false,
+            default: false
         },
         showPinned: {
             type: Boolean,
-            default: false,
+            default: false
         },
         searchLimit: {
             type: Number,
-            default: 4,
+            default: 4
         },
         hideGroupTitle: {
             type: Boolean,
-            default: false,
-        },
+            default: false
+        }
     },
     data() {
         return {
@@ -113,7 +113,7 @@ export default {
             filteredData: {},
             currentSelected: -1,
             inputFocused: false,
-            insideSuggestions: false,
+            insideSuggestions: false
         }
     },
     watch: {
@@ -157,7 +157,7 @@ export default {
             }
 
             if (grp_index !== null) this.currentSelected = `${grp_index}.0`
-        },
+        }
     },
     methods: {
         escPressed() {
@@ -165,22 +165,31 @@ export default {
             this.searchQuery = ''
         },
         filter_grp(grp) {
-            const exactEle = grp.data.filter(item => {
-                return item[grp.key]
-                    .toLowerCase()
-                    .startsWith(this.searchQuery.toLowerCase())
-            })
-            const containEle = grp.data.filter(item => {
+            // const exactEle = grp.data.filter(item => {
+            //     return item[grp.key]
+            //         .toLowerCase()
+            //         .startsWith(this.searchQuery.toLowerCase())
+            // })
+            // const containEle = grp.data.filter(item => {
+            //     return (
+            //         !item[grp.key]
+            //             .toLowerCase()
+            //             .startsWith(this.searchQuery.toLowerCase()) &&
+            //         item[grp.key]
+            //             .toLowerCase()
+            //             .indexOf(this.searchQuery.toLowerCase()) > -1
+            //     )
+            // })
+            // return exactEle.concat(containEle).slice(0, this.searchLimit)
+            return grp.data.filter(animal => {
+                animal.searchString = animal.name + ' ' + animal.id
+                // eslint-disable-next-line
                 return (
-                    !item[grp.key]
-                        .toLowerCase()
-                        .startsWith(this.searchQuery.toLowerCase()) &&
-                    item[grp.key]
+                    animal.searchString
                         .toLowerCase()
                         .indexOf(this.searchQuery.toLowerCase()) > -1
                 )
             })
-            return exactEle.concat(containEle).slice(0, this.searchLimit)
         },
         inputInit() {
             if (
@@ -216,7 +225,7 @@ export default {
                 ]
 
                 this.$emit('selected', {
-                    [grp_of_selected_item]: selected_item,
+                    [grp_of_selected_item]: selected_item
                 })
 
                 this.searchQuery = ''
@@ -263,9 +272,8 @@ export default {
                     for (let i = Number(grp_i) - 1; i >= 0; i--) {
                         // If navigating group have items => Then move in that group
                         if (grp_arr[i][1].length > 0) {
-                            this.currentSelected = `${i}.${
-                                grp_arr[i][1].length - 1
-                            }`
+                            this.currentSelected = `${i}.${grp_arr[i][1]
+                                .length - 1}`
                             break
                         }
                     }
@@ -275,11 +283,11 @@ export default {
         },
         focusInput() {
             this.$refs.input.$el.querySelector('input').focus()
-        },
+        }
     },
     mounted() {
         if (this.autoFocus) this.focusInput()
-    },
+    }
 }
 </script>
 
