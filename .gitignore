@@ -92,4 +92,7 @@ sw.*
 # Firebase
 .firebase
 .firebaserc
-firebase.json
+
+# packages
+yarn.lock
+package-json.lock
