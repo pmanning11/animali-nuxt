@@ -1,7 +1,4 @@
 export default {
-    privateRuntimeConfig: {
-        googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
-    },
     /*
      ** Nuxt rendering mode
      ** See https://nuxtjs.org/api/configuration-mode
