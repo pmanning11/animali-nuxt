@@ -14,12 +14,7 @@ jobs:
               with:
                   node-version: '12'
             - run: yarn install
-            - run: yarn generate
-            - uses: w9jds/firebase-action@master
-              with:
-                  args: deploy --only hosting
               env:
-                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
                   FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
                   FIREBASE_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
                   FIREBASE_DATABASEURL: ${{ secrets.FIREBASE_DATABASEURL }}
@@ -28,3 +23,9 @@ jobs:
                   FIREBASE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
                   FIREBASE_APPID: ${{ secrets.FIREBASE_APPID }}
                   FIREBASE_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
+            - run: yarn generate
+            - uses: w9jds/firebase-action@master
+              with:
+                  args: deploy --only hosting
+              env:
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
