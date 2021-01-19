@@ -15,14 +15,14 @@ jobs:
                   node-version: '12'
             - run: yarn install
               env:
-                  FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
-                  FIREBASE_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
-                  FIREBASE_DATABASEURL: ${{ secrets.FIREBASE_DATABASEURL }}
-                  FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
-                  FIREBASE_STORAGEBUCKET: ${{ secrets.FIREBASE_STORAGEBUCKET }}
-                  FIREBASE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
-                  FIREBASE_APPID: ${{ secrets.FIREBASE_APPID }}
-                  FIREBASE_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
+                  VUE_APP_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
+                  VUE_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
+                  VUE_APP_FIREBASE_DATABASEURL: ${{ secrets.FIREBASE_DATABASEURL }}
+                  VUE_APP_FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
+                  VUE_APP_FIREBASE_STORAGEBUCKET: ${{ secrets.FIREBASE_STORAGEBUCKET }}
+                  VUE_APP_FIREBASE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
+                  VUE_APP_FIREBASE_APPID: ${{ secrets.FIREBASE_APPID }}
+                  VUE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
             - run: yarn generate
             - uses: w9jds/firebase-action@master
               with:
