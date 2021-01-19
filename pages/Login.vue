@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-white flex">
+    <div class="flex min-h-screen bg-white">
         <Notification
             class="z-50"
             v-show="showNotification"
@@ -14,36 +14,39 @@
             @showNotification="presentNotification"
         />
         <div
-            class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+            class="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
         >
-            <div class="mx-auto w-full max-w-sm">
+            <div class="w-full max-w-sm mx-auto">
                 <div>
-                    <Logo class="h-12 w-auto" alt="Animali" />
+                    <Logo class="w-auto h-12" alt="Animali" />
                     <h2
-                        class="mt-6 text-3xl leading-9 font-extrabold text-secondary"
-                    >Sign in to your account</h2>
+                        class="mt-6 text-3xl font-extrabold leading-9 text-secondary"
+                    >
+                        Sign in to your account
+                    </h2>
                     <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
                         Or
                         <nuxt-link
                             to="/register"
-                            class="font-medium text-animali-600 hover:text-animali-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                        >register for a 30-day free trial</nuxt-link>
+                            class="font-medium transition duration-150 ease-in-out text-animali-600 hover:text-animali-500 focus:outline-none focus:underline"
+                            >register for a 30-day free trial</nuxt-link
+                        >
                     </p>
                 </div>
 
                 <div class="mt-8">
                     <!-- <div>
             <div>
-              <p class="text-sm leading-5 font-medium text-gray-700">
+              <p class="text-sm font-medium leading-5 text-gray-700">
                 Sign in with
               </p>
 
-              <div class="mt-1 grid grid-cols-3 gap-3">
+              <div class="grid grid-cols-3 gap-3 mt-1">
                 <div>
-                  <span class="w-full inline-flex rounded-md shadow-sm">
+                  <span class="inline-flex w-full rounded-md shadow-sm">
                     <button
                       type="button"
-                      class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out"
+                      class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
                       aria-label="Sign in with Facebook"
                     >
                       <svg
@@ -62,10 +65,10 @@
                 </div>
 
                 <div>
-                  <span class="w-full inline-flex rounded-md shadow-sm">
+                  <span class="inline-flex w-full rounded-md shadow-sm">
                     <button
                       type="button"
-                      class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out"
+                      class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
                       aria-label="Sign in with Twitter"
                     >
                       <svg
@@ -82,10 +85,10 @@
                 </div>
 
                 <div>
-                  <span class="w-full inline-flex rounded-md shadow-sm">
+                  <span class="inline-flex w-full rounded-md shadow-sm">
                     <button
                       type="button"
-                      class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out"
+                      class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
                       aria-label="Sign in with GitHub"
                     >
                       <svg
@@ -105,12 +108,12 @@
               </div>
             </div>
 
-            <div class="mt-6 relative">
+            <div class="relative mt-6">
               <div class="absolute inset-0 flex items-center">
                 <div class="w-full border-t border-gray-300"></div>
               </div>
               <div class="relative flex justify-center text-sm leading-5">
-                <span class="px-2 bg-white text-gray-500">
+                <span class="px-2 text-gray-500 bg-white">
                   Or continue with
                 </span>
               </div>
@@ -123,7 +126,8 @@
                                 <label
                                     for="email"
                                     class="block text-sm font-medium leading-5 text-gray-700"
-                                >Email address</label>
+                                    >Email address</label
+                                >
                                 <div class="mt-1 rounded-md shadow-sm">
                                     <input
                                         :disabled="isLoading"
@@ -131,7 +135,7 @@
                                         id="email"
                                         type="email"
                                         required
-                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full px-3 py-2 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     />
                                 </div>
                             </div>
@@ -140,7 +144,8 @@
                                 <label
                                     for="password"
                                     class="block text-sm font-medium leading-5 text-gray-700"
-                                >Password</label>
+                                    >Password</label
+                                >
                                 <div class="mt-1 rounded-md shadow-sm">
                                     <input
                                         :disabled="isLoading"
@@ -148,30 +153,32 @@
                                         id="password"
                                         type="password"
                                         required
-                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full px-3 py-2 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     />
                                 </div>
                             </div>
 
-                            <div class="mt-6 flex items-center justify-between">
+                            <div class="flex items-center justify-between mt-6">
                                 <div class="flex items-center">
                                     <input
                                         v-model="checkbox_remember_me"
                                         id="remember_me"
                                         type="checkbox"
-                                        class="form-checkbox h-4 w-4 text-primary transition duration-150 ease-in-out"
+                                        class="w-4 h-4 transition duration-150 ease-in-out form-checkbox text-primary"
                                     />
                                     <label
                                         for="remember_me"
-                                        class="ml-2 block text-sm leading-5 text-gray-900"
-                                    >Remember me</label>
+                                        class="block ml-2 text-sm leading-5 text-gray-900"
+                                        >Remember me</label
+                                    >
                                 </div>
 
                                 <div class="text-sm leading-5">
                                     <a
                                         @click="showPasswordResetModal = true"
-                                        class="cursor-pointer font-medium text-animali-600 hover:text-animali-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                                    >Forgot your password?</a>
+                                        class="font-medium transition duration-150 ease-in-out cursor-pointer text-animali-600 hover:text-animali-500 focus:outline-none focus:underline"
+                                        >Forgot your password?</a
+                                    >
                                 </div>
                             </div>
 
@@ -181,15 +188,17 @@
                                         :disabled="isLoading"
                                         type="submit"
                                         :class="
-                      `${
-                        isLoading ? 'opacity-75 cursor-not-allowed' : ''
-                      } w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out`
-                    "
+                                            `${
+                                                isLoading
+                                                    ? 'opacity-75 cursor-not-allowed'
+                                                    : ''
+                                            } w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-animali-700 hover:bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out`
+                                        "
                                         @click.prevent="login"
                                     >
                                         <svg
                                             v-if="isLoading"
-                                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                            class="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
                                             viewBox="0 0 24 24"
                                         >
                                             <path
@@ -207,9 +216,9 @@
                 </div>
             </div>
         </div>
-        <div class="hidden lg:block relative w-0 flex-1">
+        <div class="relative flex-1 hidden w-0 lg:block">
             <img
-                class="absolute inset-0 h-full w-full object-cover"
+                class="absolute inset-0 object-cover w-full h-full"
                 src="https://source.unsplash.com/XSNmXUiEZqI/"
                 alt="whale shark"
             />
@@ -228,7 +237,7 @@ export default {
     components: {
         Logo,
         Notification,
-        PasswordResetModal,
+        PasswordResetModal
     },
 
     data() {
@@ -241,7 +250,7 @@ export default {
             password: '',
             notificationTitle: '',
             notificationBody: '',
-            notificationStatus: '',
+            notificationStatus: ''
         }
     },
 
@@ -254,14 +263,14 @@ export default {
             if (!this.checkbox_remember_me) {
                 this.$fireAuth
                     .setPersistence(this.$fireAuthObj.Auth.Persistence.SESSION)
-                    .then(async function () {
+                    .then(async function() {
                         const user = await self.$fireAuth.signInWithEmailAndPassword(
                             self.email,
                             self.password
                         )
                         self.$router.push('/dashboard')
                     })
-                    .catch(function (err) {
+                    .catch(function(err) {
                         console.log('error here: ', err)
 
                         if (err.code === 'auth/wrong-password') {
@@ -297,7 +306,7 @@ export default {
                 // If Remember me checked -> login with unlimited persistence
                 const user = await this.$fireAuth
                     .signInWithEmailAndPassword(this.email, this.password)
-                    .catch(function (err) {
+                    .catch(function(err) {
                         console.log('error here: ', err)
 
                         if (err.code === 'auth/wrong-password') {
@@ -361,8 +370,8 @@ export default {
             setTimeout(() => {
                 this.showNotification = false
             }, 5000)
-        },
-    },
+        }
+    }
 }
 </script>
 
