@@ -73,7 +73,7 @@ export default {
      */
     modules: ['@nuxtjs/pwa', '@nuxtjs/firebase', '@nuxtjs/moment'],
 
-    //Nuxt-Fire Module Options
+    // Nuxt-Fire Module Options
     firebase: {
         config: {
             apiKey: process.env.FIREBASE_APIKEY,
