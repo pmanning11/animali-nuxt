@@ -29,7 +29,7 @@
     <a href="https://github.com/pjmanning/animali-web-app"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/pjmanning/animali-web-app">View Demo</a>
+    <a href="https://github.com/pjmanning/animali-web-app">View Site</a>
     ·
     <a href="https://github.com/pjmanning/animali-web-app/issues">Report Bug</a>
     ·
@@ -75,6 +75,7 @@
 -   [Nuxt](https://nuxtjs.org)
 -   [Tailwind](https://tailwindcss.com)
 -   [Firebase](https://firebase.google.com/)
+-   [Algolia](https://algolia.com/)
 
 <!-- GETTING STARTED -->
 
@@ -86,7 +87,8 @@ To get a local copy up and running follow these steps...
 
 -   npm or yarn
 -   Google Cloud Platform account
--   Create a Firebase project
+-   Firebase account
+-   Algolia account
 
 ### Installation
 
@@ -100,18 +102,24 @@ To get a local copy up and running follow these steps...
     ```
 3. Set up Firebase project
 
-4. Run on local environment
+4. Define .env file with firebase config
+
+5. Set up Google Maps
+
+6. Set up Algolia
+
+7. Run on local environment
     ```sh
     yarn dev
     ```
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+<!-- ## Usage
 
 _Coming soon..._
 
-<!-- Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
@@ -155,6 +163,7 @@ Project Link: [https://github.com/pjmanning/animali-web-app](https://github.com/
 -   [Nuxt](https://nuxtjs.org)
 -   [Tailwind](https://tailwindcss.com)
 -   [Firebase](https://firebase.google.com/)
+-   [Algolia](https://algolia.com/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
