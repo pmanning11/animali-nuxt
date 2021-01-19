@@ -76,14 +76,14 @@ export default {
     // Nuxt-Fire Module Options
     firebase: {
         config: {
-            apiKey: process.env.FIREBASE_APIKEY,
-            authDomain: process.env.FIREBASE_AUTHDOMAIN,
-            databaseURL: process.env.FIREBASE_DATABASEURL,
-            projectId: process.env.FIREBASE_PROJECTID,
-            storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-            messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
-            appId: process.env.FIREBASE_APPID,
-            measurementId: process.env.FIREBASE_MEASUREMENTID
+            apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
+            authDomain: process.env.VUE_APP_FIREBASE_AUTHDOMAIN,
+            databaseURL: process.env.VUE_APP_FIREBASE_DATABASEURL,
+            projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
+            storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
+            messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
+            appId: process.env.VUE_APP_FIREBASE_APPID,
+            measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENTID
         },
         onFirebaseHosting: true,
         services: {
