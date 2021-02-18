@@ -29,7 +29,7 @@
                         <nuxt-link
                             to="/register"
                             class="font-medium transition duration-150 ease-in-out text-animali-600 hover:text-animali-500 focus:outline-none focus:underline"
-                            >register for a 30-day free trial</nuxt-link
+                            >register for a free trial</nuxt-link
                         >
                     </p>
                 </div>
