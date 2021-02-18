@@ -1,19 +1,19 @@
 <template>
     <div class="pt-4 pb-6 md:py-6">
-        <div class="max-w-7xl mx-auto px-4 pb-4 sm:px-6 md:px-8">
+        <div class="px-4 pb-4 mx-auto max-w-7xl sm:px-6 md:px-8">
             <h1 class="text-2xl font-semibold text-gray-900">Settings</h1>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
             <!-- Content section -->
 
             <!-- Program Info -->
             <div
-                class="bg-white relative shadow px-4 py-5 sm:rounded-lg sm:p-6"
+                class="relative px-4 py-5 bg-white shadow sm:rounded-lg sm:p-6"
             >
                 <div class="absolute right-8">
                     <label
                         for="is_public"
-                        class="hidden sm:block text-sm font-medium leading-5 text-gray-700"
+                        class="hidden text-sm font-medium leading-5 text-gray-700 sm:block"
                     >
                         Public
                     </label>
@@ -47,7 +47,7 @@
                                 "
                             >
                                 <svg
-                                    class="h-3 w-3 text-gray-400"
+                                    class="w-3 h-3 text-gray-400"
                                     fill="none"
                                     viewBox="0 0 12 12"
                                 >
@@ -70,7 +70,7 @@
                                 "
                             >
                                 <svg
-                                    class="h-3 w-3 text-primary"
+                                    class="w-3 h-3 text-primary"
                                     fill="currentColor"
                                     viewBox="0 0 12 12"
                                 >
@@ -85,7 +85,7 @@
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <h3
-                            class="mt-3 sm:mt-0 text-lg font-medium leading-6 text-gray-900"
+                            class="mt-3 text-lg font-medium leading-6 text-gray-900 sm:mt-0"
                         >
                             Program
                         </h3>
@@ -105,12 +105,12 @@
                                             >Program Name</label
                                         >
                                         <div
-                                            class="mt-1 relative rounded-md shadow-sm"
+                                            class="relative mt-1 rounded-md shadow-sm"
                                         >
                                             <input
                                                 v-model="programName"
                                                 id="program_name"
-                                                class="form-input block w-full sm:text-sm sm:leading-5"
+                                                class="block w-full form-input sm:text-sm sm:leading-5"
                                                 placeholder="Animali"
                                             />
                                         </div>
@@ -127,7 +127,7 @@
                                 <select
                                     v-model="primarySpecies"
                                     id="primary_species"
-                                    class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                 >
                                     <option value="whaleShark"
                                         >Whale Shark</option
@@ -146,7 +146,7 @@
                             <div class="mt-6">
                                 <label
                                     for="description"
-                                    class="block text-sm leading-5 font-medium text-gray-700"
+                                    class="block text-sm font-medium leading-5 text-gray-700"
                                 >
                                     Description
                                 </label>
@@ -155,7 +155,7 @@
                                         v-model="description"
                                         id="description"
                                         rows="3"
-                                        class="form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full mt-1 transition duration-150 ease-in-out form-textarea sm:text-sm sm:leading-5"
                                         placeholder="Animali is a platform for endangered species..."
                                     ></textarea>
                                 </div>
@@ -171,11 +171,11 @@
                                     class="block text-sm font-medium leading-5 text-gray-700"
                                     >Program Contact Email</label
                                 >
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="relative mt-1 rounded-md shadow-sm">
                                     <input
                                         v-model="programEmail"
                                         id="program_email"
-                                        class="form-input block w-full sm:text-sm sm:leading-5"
+                                        class="block w-full form-input sm:text-sm sm:leading-5"
                                         placeholder="info@organization.com"
                                     />
                                 </div>
@@ -190,7 +190,7 @@
                                 <select
                                     v-model="locationArea"
                                     id="area"
-                                    class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                 >
                                     <option>N.America</option>
                                     <option>S.America</option>
@@ -210,7 +210,7 @@
                                 <select
                                     v-model="locationCountry"
                                     id="country"
-                                    class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                 >
                                     <option value="Afghanistan"
                                         >Afghanistan</option
@@ -679,31 +679,31 @@
                                     class="block text-sm font-medium leading-5 text-gray-700"
                                     >City</label
                                 >
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="relative mt-1 rounded-md shadow-sm">
                                     <input
                                         v-model="locationCity"
                                         id="city"
-                                        class="form-input block w-full sm:text-sm sm:leading-5"
+                                        class="block w-full form-input sm:text-sm sm:leading-5"
                                         placeholder="New York"
                                     />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-3 gap-6">
-                                <div class="mt-6 col-span-3 md:col-span-2">
+                                <div class="col-span-3 mt-6 md:col-span-2">
                                     <label
                                         for="date"
                                         class="block text-sm font-medium leading-5 text-gray-700"
                                         >Date Founded</label
                                     >
                                     <div
-                                        class="mt-1 relative rounded-md shadow-sm"
+                                        class="relative mt-1 rounded-md shadow-sm"
                                     >
                                         <input
                                             v-model="dateFounded"
                                             type="date"
                                             id="date"
-                                            class="form-input block w-full sm:text-sm sm:leading-5"
+                                            class="block w-full form-input sm:text-sm sm:leading-5"
                                         />
                                     </div>
                                 </div>
@@ -711,13 +711,13 @@
 
                             <div class="mt-6">
                                 <label
-                                    class="block text-sm leading-5 font-medium text-gray-700"
+                                    class="block text-sm font-medium leading-5 text-gray-700"
                                 >
                                     Logo
                                 </label>
-                                <div class="mt-2 flex items-center">
+                                <div class="flex items-center mt-2">
                                     <span
-                                        class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100"
+                                        class="inline-block w-12 h-12 overflow-hidden bg-gray-100 rounded-full"
                                     >
                                         <img
                                             v-if="activeUserInfo.imageLogo"
@@ -726,7 +726,7 @@
                                         />
                                         <svg
                                             v-else
-                                            class="h-full w-full text-gray-300"
+                                            class="w-full h-full text-gray-300"
                                             fill="currentColor"
                                             viewBox="0 0 24 24"
                                         >
@@ -747,7 +747,7 @@
                                         <button
                                             type="button"
                                             @click="selectLogo"
-                                            class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                                            class="px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                                         >
                                             Change Logo
                                         </button>
@@ -757,14 +757,14 @@
 
                             <div class="mt-6">
                                 <label
-                                    class="block text-sm leading-5 font-medium text-gray-700"
+                                    class="block text-sm font-medium leading-5 text-gray-700"
                                 >
                                     Cover photo
                                 </label>
                                 <input
                                     type="file"
                                     ref="headerInput"
-                                    class=" hidden"
+                                    class="hidden "
                                     accept="image/jpeg, image/png"
                                     name="photo"
                                     @change="detectHeaderFile($event)"
@@ -773,23 +773,23 @@
                                     <img
                                         :src="activeUserInfo.imageHeader"
                                         :alt="activeUserInfo.programName"
-                                        class="mt-2 flex justify-center pt-2 pb-6 rounded-md"
+                                        class="flex justify-center pt-2 pb-6 mt-2 rounded-md"
                                     />
                                     <button
                                         type="button"
                                         @click="selectHeader"
-                                        class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                                        class="px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                                     >
                                         Change Cover
                                     </button>
                                 </div>
                                 <div
                                     v-else
-                                    class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+                                    class="flex justify-center px-6 pt-5 pb-6 mt-2 border-2 border-gray-300 border-dashed rounded-md"
                                 >
                                     <div class="text-center">
                                         <svg
-                                            class="mx-auto h-12 w-12 text-gray-400"
+                                            class="w-12 h-12 mx-auto text-gray-400"
                                             stroke="currentColor"
                                             fill="none"
                                             viewBox="0 0 48 48"
@@ -803,8 +803,8 @@
                                         </svg>
                                         <p class="mt-1 text-sm text-gray-600">
                                             <button
-                                                @click="selectHeader"
-                                                class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
+                                                @click.prevent="selectHeader"
+                                                class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline"
                                             >
                                                 Upload a file
                                             </button>
@@ -821,7 +821,7 @@
             </div>
 
             <!-- Personal Info -->
-            <div class="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+            <div class="px-4 py-5 mt-6 bg-white shadow sm:rounded-lg sm:p-6">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -843,7 +843,7 @@
                                     <input
                                         v-model="firstName"
                                         id="first_name"
-                                        class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     />
                                 </div>
 
@@ -856,7 +856,7 @@
                                     <input
                                         v-model="lastName"
                                         id="last_name"
-                                        class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     />
                                 </div>
 
@@ -869,7 +869,7 @@
                                     <input
                                         v-model="email"
                                         id="email_address"
-                                        class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     />
                                 </div>
                             </div>
@@ -879,7 +879,7 @@
             </div>
 
             <!-- Social Links -->
-            <div class="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+            <div class="px-4 py-5 mt-6 bg-white shadow sm:rounded-lg sm:p-6">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -897,16 +897,16 @@
                             >
                                 Organization Website
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://
                                 </span>
                                 <input
                                     v-model="website"
                                     id="organization_website"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="animali.life"
                                 />
                             </div>
@@ -918,16 +918,16 @@
                             >
                                 Donations
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://
                                 </span>
                                 <input
                                     v-model="donations"
                                     id="donations"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="paypal.com/animali"
                                 />
                             </div>
@@ -939,16 +939,16 @@
                             >
                                 Twitter
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://twitter.com/
                                 </span>
                                 <input
                                     v-model="twitter"
                                     id="twitter"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="animali"
                                 />
                             </div>
@@ -960,16 +960,16 @@
                             >
                                 Facebook
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://facebook.com/
                                 </span>
                                 <input
                                     v-model="facebook"
                                     id="facebook"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="animali"
                                 />
                             </div>
@@ -981,16 +981,16 @@
                             >
                                 Instagram
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://instagram.com/
                                 </span>
                                 <input
                                     v-model="instagram"
                                     id="instagram"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="animali"
                                 />
                             </div>
@@ -1002,16 +1002,16 @@
                             >
                                 Youtube
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="flex mt-1 rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                                    class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm"
                                 >
                                     https://youtube.com/
                                 </span>
                                 <input
                                     v-model="youtube"
                                     id="youtube"
-                                    class="form-input flex-1 block w-full px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                                    class="flex-1 block w-full px-3 py-2 rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
                                     placeholder="animali"
                                 />
                             </div>
@@ -1020,7 +1020,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+            <div class="px-4 py-5 mt-6 bg-white shadow sm:rounded-lg sm:p-6">
                 <span class="inline-flex rounded-md shadow-sm">
                     <button
                         :disabled="isLoading"
@@ -1034,7 +1034,7 @@
                     >
                         <svg
                             v-if="isLoading"
-                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            class="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
                             viewBox="0 0 24 24"
                         >
                             <path
