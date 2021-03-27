@@ -18,7 +18,9 @@
         >
             <div class="w-full max-w-sm mx-auto">
                 <div>
-                    <Logo class="w-auto h-12" alt="Animali" />
+                    <a href="https://animali.life">
+                        <Logo class="w-auto h-12" alt="Animali" />
+                    </a>
                     <h2
                         class="mt-6 text-3xl font-extrabold leading-9 text-secondary"
                     >

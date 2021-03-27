@@ -13,7 +13,9 @@
         >
             <div class="w-full max-w-md mx-auto">
                 <div>
-                    <Logo class="w-auto h-12" alt="Animali" />
+                    <a href="https://animali.life">
+                        <Logo class="w-auto h-12" alt="Animali" />
+                    </a>
 
                     <nav class="flex items-center pt-8 space-x-8 md:hidden">
                         <p class="text-sm font-medium leading-5">
