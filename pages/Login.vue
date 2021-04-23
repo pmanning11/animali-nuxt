@@ -26,14 +26,14 @@
                     >
                         Sign in to your account
                     </h2>
-                    <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
+                    <!-- <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
                         Or
                         <nuxt-link
                             to="/register"
                             class="font-medium transition duration-150 ease-in-out text-animali-600 hover:text-animali-500 focus:outline-none focus:underline"
                             >register for a free trial</nuxt-link
                         >
-                    </p>
+                    </p> -->
                 </div>
 
                 <div class="mt-8">
